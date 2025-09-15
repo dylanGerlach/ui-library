@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import { ThreeDotLoader } from "./three-dot-loader"
+import type { Meta, StoryObj } from "@storybook/react";
+import { ThreeDotLoader } from "./three-dot-loader";
 
 const meta: Meta<typeof ThreeDotLoader> = {
   title: "Components/ThreeDotLoader",
@@ -17,49 +17,49 @@ const meta: Meta<typeof ThreeDotLoader> = {
       defaultValue: "medium",
     },
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof ThreeDotLoader>
+export default meta;
+type Story = StoryObj<typeof ThreeDotLoader>;
 
 export const Default: Story = {
   args: {
     className: "text-primary",
     pace: "medium",
   },
-}
+};
 
 export const Secondary: Story = {
   args: {
     className: "text-secondary",
     pace: "medium",
   },
-}
+};
 
 export const Large: Story = {
   args: {
     className: "text-accent text-lg",
     pace: "medium",
   },
-}
+};
 
 export const Small: Story = {
   args: {
     className: "text-destructive text-sm",
     pace: "medium",
   },
-}
+};
 
 export const Slow: Story = {
   args: {
     className: "text-primary",
     pace: "slow",
   },
-}
+};
 
 export const Fast: Story = {
   args: {
     className: "text-primary",
     pace: "fast",
   },
-}
+};

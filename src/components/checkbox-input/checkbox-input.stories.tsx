@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import CheckboxInput from "./checkbox-input";
+import { CheckboxInput } from "./checkbox-input";
 
 const meta: Meta<typeof CheckboxInput> = {
   title: "Components/CheckboxInput",
@@ -24,13 +24,7 @@ type Story = StoryObj<typeof CheckboxInput>;
 // Controlled template for toggling
 const ControlledTemplate = (args: any) => {
   const [checked, setChecked] = useState(args.checked ?? false);
-  return (
-    <CheckboxInput
-      {...args}
-      checked={checked}
-      onChange={setChecked}
-    />
-  );
+  return <CheckboxInput {...args} checked={checked} onChange={setChecked} />;
 };
 
 export const Default: Story = {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import EmailInput from "./email-input";
+import { EmailInput } from "./email-input";
 
 const meta: Meta<typeof EmailInput> = {
   title: "Components/EmailInput",

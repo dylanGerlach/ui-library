@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import { Palette } from "lucide-react"; // example trigger icon
-import ColorSelector from "./color-selector";
+import { ColorSelector } from "./color-selector";
 
 const meta: Meta<typeof ColorSelector> = {
   title: "Components/ColorSelector",
@@ -20,13 +20,7 @@ type Story = StoryObj<typeof ColorSelector>;
 // Controlled wrapper template
 const ControlledTemplate = (args: any) => {
   const [color, setColor] = useState(args.value || "#000000");
-  return (
-    <ColorSelector
-      {...args}
-      value={color}
-      onChange={setColor}
-    />
-  );
+  return <ColorSelector {...args} value={color} onChange={setColor} />;
 };
 
 export const Default: Story = {

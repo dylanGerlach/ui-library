@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 type SpinnerProps = {
   className?: string;
-}
+};
 
 export function Spinner({ className }: SpinnerProps) {
   return (
@@ -29,5 +29,5 @@ export function Spinner({ className }: SpinnerProps) {
         d="M22 12a10 10 0 00-10 -10"
       />
     </svg>
-  )
+  );
 }

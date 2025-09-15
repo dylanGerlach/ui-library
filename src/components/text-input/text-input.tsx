@@ -109,7 +109,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         {(showMessage || reserveMessageSpace) && (
           <p
             className={clsx(
-              "text-sm mt-1 min-h-[1.25rem]", 
+              "text-sm mt-1 min-h-[1.25rem]",
               error
                 ? "text-destructive"
                 : messageColor
