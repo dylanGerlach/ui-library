@@ -1,17 +1,29 @@
 {
-  "name": "ui-library",
+  "name": "@dylangerlach/ui-library",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Private React + Tailwind UI component library",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build": "tsc && vite build",
+    "prepublishOnly": "npm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "keywords": [
+    "react",
+    "tailwind",
+    "storybook",
+    "ui-library"
+  ],
+  "author": "Dylan Gerlach",
+  "license": "MIT",
+  "type": "module",
   "dependencies": {
     "@radix-ui/react-popover": "^1.1.15",
     "clsx": "^2.1.1",
@@ -40,6 +52,10 @@
     "storybook": "^9.1.5",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "vite": "^5.4.8"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }
