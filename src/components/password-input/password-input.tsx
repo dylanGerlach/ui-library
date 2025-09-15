@@ -11,7 +11,7 @@ export interface PasswordInputProps
   resetKey?: string;
 }
 
-export default function PasswordInput({
+export function PasswordInput({
   value,
   onChange,
   autoComplete = "new-password",
@@ -54,9 +54,7 @@ export default function PasswordInput({
       autoComplete={autoComplete}
       error={error}
       helperText={
-        showStrength && touched && !error
-          ? `Strength: ${strength}`
-          : helperText
+        showStrength && touched && !error ? `Strength: ${strength}` : helperText
       }
       messageColor={
         showStrength && touched && !error ? getStrengthColor() : undefined

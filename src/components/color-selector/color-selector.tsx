@@ -6,25 +6,53 @@ import { Palette } from "lucide-react";
 
 const COLORS = [
   // Grayscale
-  "#000000", "#444444", "#888888", "#CCCCCC", "#FFFFFF",
+  "#000000",
+  "#444444",
+  "#888888",
+  "#CCCCCC",
+  "#FFFFFF",
 
   // Reds
-  "#FF0000", "#CC0000", "#990000", "#FF6666", "#FF9999",
+  "#FF0000",
+  "#CC0000",
+  "#990000",
+  "#FF6666",
+  "#FF9999",
 
   // Oranges
-  "#FF9900", "#CC7A00", "#994D00", "#FFB84D", "#FFD699",
+  "#FF9900",
+  "#CC7A00",
+  "#994D00",
+  "#FFB84D",
+  "#FFD699",
 
   // Yellows
-  "#FFFF00", "#CCCC00", "#999900", "#FFFF66", "#FFFF99",
+  "#FFFF00",
+  "#CCCC00",
+  "#999900",
+  "#FFFF66",
+  "#FFFF99",
 
   // Greens
-  "#00FF00", "#00CC00", "#009900", "#66FF66", "#99FF99",
+  "#00FF00",
+  "#00CC00",
+  "#009900",
+  "#66FF66",
+  "#99FF99",
 
   // Cyans / Teals
-  "#00FFFF", "#00CCCC", "#009999", "#66FFFF", "#99FFFF",
+  "#00FFFF",
+  "#00CCCC",
+  "#009999",
+  "#66FFFF",
+  "#99FFFF",
 
   // Blues
-  "#0000FF", "#0000CC", "#000099", "#6666FF", "#9999FF",
+  "#0000FF",
+  "#0000CC",
+  "#000099",
+  "#6666FF",
+  "#9999FF",
 ];
 
 export interface ColorSelectorProps {
@@ -36,7 +64,7 @@ export interface ColorSelectorProps {
   disabled?: boolean;
 }
 
-export default function ColorSelector({
+export function ColorSelector({
   trigger,
   value,
   onChange,

@@ -8,16 +8,14 @@ export interface EmailInputProps
   validate?: boolean;
 }
 
-export default function EmailInput({
+export function EmailInput({
   value,
   onChange,
   validate = true,
   error,
   ...props
 }: EmailInputProps) {
-  const [internalError, setInternalError] = useState<string | undefined>(
-    error
-  );
+  const [internalError, setInternalError] = useState<string | undefined>(error);
 
   const handleBlur = () => {
     if (validate) {

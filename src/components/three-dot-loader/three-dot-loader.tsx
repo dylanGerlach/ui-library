@@ -1,10 +1,10 @@
-import React from "react"
-import clsx from "clsx"
+import React from "react";
+import clsx from "clsx";
 
 type ThreeDotLoaderProps = {
-  className?: string
-  pace?: "slow" | "medium" | "fast"
-}
+  className?: string;
+  pace?: "slow" | "medium" | "fast";
+};
 
 export function ThreeDotLoader({
   className,
@@ -14,7 +14,7 @@ export function ThreeDotLoader({
     slow: "dot-slow",
     medium: "dot-medium",
     fast: "dot-fast",
-  }
+  };
 
   return (
     <div className={clsx("flex items-center gap-[0.3em]", className)}>
@@ -46,5 +46,5 @@ export function ThreeDotLoader({
         }
       `}</style>
     </div>
-  )
+  );
 }

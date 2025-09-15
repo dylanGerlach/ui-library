@@ -14,7 +14,7 @@ export interface CheckboxInputProps {
   reserveMessageSpace?: boolean;
 }
 
-export default function CheckboxInput({
+export function CheckboxInput({
   label,
   checked,
   onChange,
@@ -39,9 +39,7 @@ export default function CheckboxInput({
           required={required}
           className="w-4 h-4 accent-[var(--color-primary)] cursor-pointer disabled:cursor-not-allowed"
         />
-        <label className="text-sm text-foreground">
-          {label}
-        </label>
+        <label className="text-sm text-foreground">{label}</label>
       </div>
 
       {(showMessage || reserveMessageSpace) && (
