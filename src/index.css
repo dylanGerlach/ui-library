@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* Tell Tailwind: these are theme tokens */
+@theme {
+  --color-primary: rgb(37 99 235);
+  --color-primary-foreground: rgb(255 255 255);
+
+  --color-secondary: rgb(107 114 128);
+  --color-secondary-foreground: rgb(255 255 255);
+
+  --color-accent: rgb(249 115 22);
+  --color-accent-foreground: rgb(255 255 255);
+
+  --color-success: rgb(22 163 74);
+  --color-warning: rgb(250 204 21);
+  --color-destructive: rgb(220 38 38);
+  --color-info: rgb(14 165 233);
+
+  --color-background: rgb(255 255 255);        
+  --color-card: rgb(243 244 246);             
+  --color-card-foreground: rgb(17 24 39); 
+  --color-foreground: rgb(17 24 39);
+  --color-muted: rgb(107 114 128);
+  --color-border: rgb(229 231 235);
+
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-primary: rgb(29 78 216);
+  --color-secondary: rgb(75 85 99);
+  --color-accent: rgb(234 88 12);
+
+  --color-success: rgb(21 128 61);
+  --color-warning: rgb(202 138 4);
+  --color-destructive: rgb(153 27 27);
+  --color-info: rgb(3 105 161);
+
+  --color-background: rgb(17 24 39);
+  --color-foreground: rgb(255 255 255);
+  --color-muted: rgb(156 163 175);
+  --color-border: rgb(55 65 81);
+  --color-card: rgb(31 41 55);
+  --color-card-foreground: rgb(255 255 255);
+}
