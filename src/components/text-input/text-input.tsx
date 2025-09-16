@@ -69,8 +69,14 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           <input
             ref={ref}
             onChange={(e) => onChange?.(e.target.value)}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
+            onFocus={(e) => {
+              setIsFocused(true);
+              props.onFocus?.(e);
+            }}
+            onBlur={(e) => {
+              setIsFocused(false);
+              props.onBlur?.(e);
+            }}
             disabled={disabled}
             className={clsx(
               "w-full rounded-md border bg-card text-foreground placeholder-muted",

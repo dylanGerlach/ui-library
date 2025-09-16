@@ -6,3 +6,5 @@ export { PasswordInput } from "./components/password-input/password-input";
 export { Spinner } from "./components/spinner/spinner";
 export { TextInput } from "./components/text-input/text-input";
 export { ThreeDotLoader } from "./components/three-dot-loader/three-dot-loader";
+export { DateInput } from "./components/date-input/date-input";
+export { DropdownInput } from "./components/dropdown-input/dropdown-input";
