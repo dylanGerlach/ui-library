@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Search, Mail, Lock } from "lucide-react";
-import TextInput from "./text-input";
+import { Search, Mail } from "lucide-react";
+import { TextInput } from "./text-input";
 
 const meta: Meta<typeof TextInput> = {
   title: "Components/TextInput",

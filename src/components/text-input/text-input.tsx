@@ -23,7 +23,7 @@ const sizeClasses: Record<
   lg: { input: "px-4 py-3 text-lg", icon: "w-6 h-6" },
 };
 
-const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       label,
@@ -126,4 +126,3 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 );
 
 TextInput.displayName = "TextInput";
-export default TextInput;

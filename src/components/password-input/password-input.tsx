@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import TextInput, { TextInputProps } from "../text-input/text-input";
+import { TextInput, TextInputProps } from "../text-input/text-input";
 
 export interface PasswordInputProps
   extends Omit<TextInputProps, "type" | "onChange"> {
