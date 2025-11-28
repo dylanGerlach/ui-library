@@ -105,7 +105,6 @@ export const DateInput = ({
   error,
   required,
   helperText,
-  className,
   messageColor,
   reserveMessageSpace = true,
   ...props
@@ -160,7 +159,6 @@ export const DateInput = ({
           disabled={disabled}
           messageColor={messageColor}
           reserveMessageSpace={reserveMessageSpace}
-          className={className}
           value={selected ? formatDisplay(selected) : ""}
         />
       }
@@ -190,7 +188,6 @@ export const DateInput = ({
           disabled={disabled}
           messageColor={messageColor}
           reserveMessageSpace={reserveMessageSpace}
-          className={className}
           value={
             range[0] && range[1]
               ? `${formatDisplay(range[0])} – ${formatDisplay(range[1])}`

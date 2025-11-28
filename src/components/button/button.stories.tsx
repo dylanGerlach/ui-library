@@ -18,6 +18,12 @@ const meta: Meta<typeof Button> = {
       description: "Size of the button",
       defaultValue: "md",
     },
+    rounded: {
+      control: "select",
+      options: ["none", "sm", "md", "lg", "full"],
+      description: "Border radius of the button (rounded corners). 'full' creates a pill-shaped button.",
+      defaultValue: "md",
+    },
     disabled: {
       control: "boolean",
       description: "Disable the button",
@@ -93,6 +99,27 @@ export const FullWidth: Story = {
   },
 };
 
+export const BorderRadius: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="flex gap-4 items-center">
+        <Button variant="primary" rounded="none">None</Button>
+        <Button variant="primary" rounded="sm">Small</Button>
+        <Button variant="primary" rounded="md">Medium</Button>
+        <Button variant="primary" rounded="lg">Large</Button>
+        <Button variant="primary" rounded="full">Pill (Full)</Button>
+      </div>
+      <div className="flex gap-4 items-center">
+        <Button variant="secondary" rounded="none">None</Button>
+        <Button variant="secondary" rounded="sm">Small</Button>
+        <Button variant="secondary" rounded="md">Medium</Button>
+        <Button variant="secondary" rounded="lg">Large</Button>
+        <Button variant="secondary" rounded="full">Pill (Full)</Button>
+      </div>
+    </div>
+  ),
+};
+
 // Enhanced story showcasing all variants
 export const AllVariants: Story = {
   render: () => (
@@ -107,6 +134,11 @@ export const AllVariants: Story = {
         <Button size="sm">Small</Button>
         <Button size="md">Medium</Button>
         <Button size="lg">Large</Button>
+      </div>
+      <div className="flex gap-4">
+        <Button variant="primary" rounded="none">None</Button>
+        <Button variant="primary" rounded="md">Medium</Button>
+        <Button variant="primary" rounded="full">Pill</Button>
       </div>
     </div>
   ),

@@ -11,7 +11,6 @@ const meta: Meta<typeof IconButton> = {
     label: { control: "text" },
     disabled: { control: "boolean" },
     active: { control: "boolean" },
-    className: { control: "text" },
   },
 };
 

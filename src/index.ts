@@ -116,4 +116,5 @@ export type {
   Palette,
   PaletteOptions,
   PaletteColor,
+  MessageColor,
 } from "./theme/types";

@@ -5,6 +5,7 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [react()],
   build: {
+    emptyOutDir: false, // Don't clean dist folder - preserve .d.ts files from tsc
     lib: {
       // Entry point for your component library
       entry: resolve(__dirname, "src/index.ts"),

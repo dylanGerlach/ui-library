@@ -1,9 +1,10 @@
 import React from "react";
 import clsx from "clsx";
+import type { MessageColor } from "../../theme/types";
 
 /**
  * Props for the CheckboxInput component.
- * 
+ *
  * @interface CheckboxInputProps
  */
 export interface CheckboxInputProps {
@@ -21,20 +22,18 @@ export interface CheckboxInputProps {
   error?: string;
   /** Helper text to display below the checkbox */
   helperText?: string;
-  /** Custom inline styles for the input container */
-  inputStyle?: React.CSSProperties;
-  /** Custom color for the message text */
-  messageColor?: string;
+  /** Color for the message text from theme palette */
+  messageColor?: MessageColor;
   /** Whether to reserve space for messages even when none are shown */
   reserveMessageSpace?: boolean;
 }
 
 /**
  * A checkbox input component with label, error handling, and validation states.
- * 
+ *
  * Supports required state, error messages, and helper text. Uses theme colors
  * for styling, so ensure ThemeProvider is set up in your app.
- * 
+ *
  * @example
  * ```tsx
  * <CheckboxInput
@@ -45,7 +44,7 @@ export interface CheckboxInputProps {
  *   error={errors.agreement}
  * />
  * ```
- * 
+ *
  * @param props - CheckboxInput props
  * @returns A styled checkbox input with label and message support
  */
@@ -57,7 +56,6 @@ export function CheckboxInput({
   disabled = false,
   error,
   helperText,
-  inputStyle = {},
   messageColor,
   reserveMessageSpace = true,
 }: CheckboxInputProps) {
@@ -65,7 +63,7 @@ export function CheckboxInput({
 
   return (
     <div className="space-y-1 w-full" style={{ opacity: disabled ? 0.6 : 1 }}>
-      <div className="flex items-center gap-2" style={inputStyle}>
+      <div className="flex items-center gap-2">
         <input
           type="checkbox"
           checked={checked}
@@ -84,7 +82,7 @@ export function CheckboxInput({
             error
               ? "text-destructive"
               : messageColor
-              ? messageColor
+              ? `text-${messageColor}`
               : "text-foreground"
           )}
         >

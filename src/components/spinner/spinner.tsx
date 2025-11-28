@@ -5,8 +5,8 @@ import { Loader2 } from "lucide-react";
  * Props for the Spinner component.
  */
 type SpinnerProps = {
-  /** Custom CSS class name */
-  className?: string;
+  /** Size of the spinner (e.g., "h-6 w-6") */
+  size?: string;
 };
 
 /**
@@ -16,12 +16,12 @@ type SpinnerProps = {
  * 
  * @example
  * ```tsx
- * <Spinner className="h-6 w-6" />
+ * <Spinner size="h-6 w-6" />
  * ```
  * 
  * @param props - Spinner props
  * @returns A spinning loader icon
  */
-export function Spinner({ className }: SpinnerProps) {
-  return <Loader2 className={clsx("animate-spin text-current", className)} />;
+export function Spinner({ size = "h-4 w-4" }: SpinnerProps) {
+  return <Loader2 className={clsx("animate-spin text-current", size)} />;
 }

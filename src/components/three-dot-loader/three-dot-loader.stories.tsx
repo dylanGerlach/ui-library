@@ -6,9 +6,9 @@ const meta: Meta<typeof ThreeDotLoader> = {
   component: ThreeDotLoader,
   tags: ["autodocs"],
   argTypes: {
-    className: {
+    size: {
       control: "text",
-      description: "Tailwind/utility classes for size or color overrides",
+      description: "Size classes (e.g., 'h-4 w-4')",
     },
     pace: {
       control: { type: "radio" },
@@ -24,42 +24,35 @@ type Story = StoryObj<typeof ThreeDotLoader>;
 
 export const Default: Story = {
   args: {
-    className: "text-primary",
-    pace: "medium",
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    className: "text-secondary",
+    size: "h-4 w-4",
     pace: "medium",
   },
 };
 
 export const Large: Story = {
   args: {
-    className: "text-accent text-lg",
+    size: "h-6 w-6",
     pace: "medium",
   },
 };
 
 export const Small: Story = {
   args: {
-    className: "text-destructive text-sm",
+    size: "h-3 w-3",
     pace: "medium",
   },
 };
 
 export const Slow: Story = {
   args: {
-    className: "text-primary",
+    size: "h-4 w-4",
     pace: "slow",
   },
 };
 
 export const Fast: Story = {
   args: {
-    className: "text-primary",
+    size: "h-4 w-4",
     pace: "fast",
   },
 };

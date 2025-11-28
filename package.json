@@ -1,10 +1,18 @@
 {
   "name": "dylangerlach-ui-library",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "React UI component library with MUI-style theming and Tailwind CSS. Includes form inputs, buttons, menus, and more with full TypeScript support.",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./dist/index.css": "./dist/index.css"
+  },
   "files": [
     "dist"
   ],

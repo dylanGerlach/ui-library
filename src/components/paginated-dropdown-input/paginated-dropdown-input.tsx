@@ -3,6 +3,7 @@ import type { ReactElement } from "react";
 import type { GroupBase } from "react-select";
 import Select from "react-select";
 import clsx from "clsx";
+import type { MessageColor } from "../../theme/types";
 
 import { useComponents } from "./components/useComponents";
 import type { AsyncPaginateProps, UseAsyncPaginateResult } from "./utils/types";
@@ -38,8 +39,8 @@ export interface PaginatedDropdownInputProps<
   required?: boolean;
   /** Whether the dropdown is disabled */
   disabled?: boolean;
-  /** Custom color for the message text */
-  messageColor?: string;
+  /** Color for the message text from theme palette */
+  messageColor?: MessageColor;
   /** Whether to reserve space for messages even when none are shown */
   reserveMessageSpace?: boolean;
 }
@@ -137,7 +138,7 @@ export const PaginatedDropdownInput = forwardRef(
             components={{
               ...processedComponents,
               LoadingIndicator: () => (
-                <ThreeDotLoader className="mr-2 text-xs" pace="medium" />
+                <ThreeDotLoader size="h-3 w-3" pace="medium" />
               ),
             }}
             classNamePrefix="rs"
@@ -204,7 +205,7 @@ export const PaginatedDropdownInput = forwardRef(
               error
                 ? "text-destructive"
                 : messageColor
-                ? messageColor
+                ? `text-${messageColor}`
                 : "text-foreground"
             )}
           >

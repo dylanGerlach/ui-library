@@ -70,10 +70,10 @@ export function PasswordInput({
     setTouched(false);
   }, [resetKey]);
 
-  const getStrengthColor = () => {
-    if (strength === "Strong") return "text-success";
-    if (strength === "Medium") return "text-warning";
-    return "text-destructive";
+  const getStrengthColor = (): "success" | "warning" | "destructive" => {
+    if (strength === "Strong") return "success";
+    if (strength === "Medium") return "warning";
+    return "destructive";
   };
 
   return (
@@ -88,7 +88,7 @@ export function PasswordInput({
         showStrength && touched && !error ? `Strength: ${strength}` : helperText
       }
       messageColor={
-        showStrength && touched && !error ? getStrengthColor() : undefined
+        showStrength && touched && !error ? getStrengthColor() : error ? "destructive" : undefined
       }
       endIcon={
         <button

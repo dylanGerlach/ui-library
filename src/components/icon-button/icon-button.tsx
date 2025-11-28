@@ -17,8 +17,6 @@ export interface IconButtonProps {
   disabled?: boolean;
   /** Callback fired when the button is clicked */
   onClick?: () => void;
-  /** Custom CSS class name */
-  className?: string;
 }
 
 /**
@@ -50,7 +48,6 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       active = false,
       disabled = false,
       onClick,
-      className = "",
     },
     ref
   ) => {
@@ -67,8 +64,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
           "flex items-center justify-center rounded-md p-2 transition-colors border",
           "bg-card text-foreground hover:bg-muted/10",
           disabled && "opacity-50 cursor-not-allowed",
-          active ? "border-2" : "border",
-          className
+          active ? "border-2" : "border"
         )}
         style={{ borderColor: active ? "var(--color-primary)" : "transparent" }}
       >

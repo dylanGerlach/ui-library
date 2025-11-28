@@ -4,7 +4,7 @@ import { ThreeDotLoader } from "../three-dot-loader/three-dot-loader";
 
 /**
  * Props for the Button component.
- * 
+ *
  * @interface ButtonProps
  * @extends React.ButtonHTMLAttributes<HTMLButtonElement>
  */
@@ -15,6 +15,8 @@ type ButtonProps = {
   variant?: "primary" | "secondary" | "accent" | "destructive";
   /** Size of the button */
   size?: "sm" | "md" | "lg";
+  /** Border radius of the button (rounded corners) */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
   /** Whether the button is disabled */
   disabled?: boolean;
   /** Whether the button is in a loading state (shows ThreeDotLoader) */
@@ -25,31 +27,43 @@ type ButtonProps = {
   icon?: React.ReactNode;
   /** Position of the icon relative to the button text */
   iconPosition?: "left" | "right";
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+} & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "className" | "style">;
 
 /**
  * A versatile button component with multiple variants, sizes, and states.
- * 
+ *
  * Supports loading states, icons, and full-width layouts. Uses theme colors
  * for styling, so ensure ThemeProvider is set up in your app.
- * 
+ *
  * @example
  * ```tsx
  * <Button variant="primary" size="md">Click me</Button>
  * ```
- * 
+ *
  * @example
  * ```tsx
- * <Button 
- *   variant="primary" 
- *   icon={<Icon />} 
+ * <Button
+ *   variant="primary"
+ *   icon={<Icon />}
  *   iconPosition="left"
  *   isLoading={isLoading}
  * >
  *   Submit
  * </Button>
  * ```
- * 
+ *
+ * @example
+ * ```tsx
+ * // Pill-shaped button (fully rounded)
+ * <Button variant="primary" rounded="full">Pill Button</Button>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Rectangular button (no rounding)
+ * <Button variant="primary" rounded="none">Rectangular Button</Button>
+ * ```
+ *
  * @param props - Button props including all standard HTML button attributes
  * @returns A styled button element
  */
@@ -57,21 +71,29 @@ export function Button({
   children,
   variant = "primary",
   size = "md",
+  rounded = "md",
   disabled = false,
   isLoading = false,
   fullWidth = false,
   icon,
   iconPosition = "left",
-  className,
   ...props
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center font-medium rounded-md border-0 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0 transition-colors disabled:opacity-50";
+    "inline-flex items-center justify-center font-medium border-0 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0 transition-colors disabled:opacity-50";
 
   const sizes: Record<string, string> = {
     sm: "px-2 py-1 text-sm",
     md: "px-4 py-2 text-base",
     lg: "px-6 py-3 text-lg",
+  };
+
+  const roundedStyles: Record<string, string> = {
+    none: "rounded-none",
+    sm: "rounded-sm",
+    md: "rounded-md",
+    lg: "rounded-lg",
+    full: "rounded-full",
   };
 
   const variants: Record<string, string> = {
@@ -87,9 +109,9 @@ export function Button({
       className={clsx(
         base,
         sizes[size],
+        roundedStyles[rounded],
         variants[variant],
-        fullWidth && "w-full",
-        className
+        fullWidth && "w-full"
       )}
       aria-busy={isLoading}
       {...props}

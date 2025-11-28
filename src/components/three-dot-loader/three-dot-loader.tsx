@@ -4,8 +4,8 @@ import clsx from "clsx";
  * Props for the ThreeDotLoader component.
  */
 type ThreeDotLoaderProps = {
-  /** Custom CSS class name */
-  className?: string;
+  /** Size of the loader (e.g., "h-4 w-4") */
+  size?: string;
   /** Animation speed of the dots */
   pace?: "slow" | "medium" | "fast";
 };
@@ -18,14 +18,14 @@ type ThreeDotLoaderProps = {
  * 
  * @example
  * ```tsx
- * <ThreeDotLoader pace="fast" className="h-4 w-4" />
+ * <ThreeDotLoader pace="fast" size="h-4 w-4" />
  * ```
  * 
  * @param props - ThreeDotLoader props
  * @returns A three-dot loading animation
  */
 export function ThreeDotLoader({
-  className,
+  size = "h-4 w-4",
   pace = "medium",
 }: ThreeDotLoaderProps) {
   const paceMap: Record<typeof pace, string> = {
@@ -35,7 +35,7 @@ export function ThreeDotLoader({
   };
 
   return (
-    <div className={clsx("flex items-center gap-[0.3em]", className)}>
+    <div className={clsx("flex items-center gap-[0.3em]", size)}>
       <span className={clsx("dot", paceMap[pace])} />
       <span className={clsx("dot delay-200", paceMap[pace])} />
       <span className={clsx("dot delay-400", paceMap[pace])} />

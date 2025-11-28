@@ -21,8 +21,6 @@ export interface DropdownMenuItem {
   variant?: "default" | "danger" | "active";
   /** Whether to show a separator after this item */
   separator?: boolean;
-  /** Custom CSS class name for the item */
-  className?: string;
   /** Nested submenu items (creates a submenu) */
   children?: DropdownMenuItem[];
 }
@@ -47,8 +45,6 @@ export interface DropdownMenuProps {
   align?: "start" | "center" | "end";
   /** Distance in pixels from the trigger */
   sideOffset?: number;
-  /** Custom CSS class name for the menu content */
-  className?: string;
 }
 
 // Submenu item component
@@ -69,8 +65,6 @@ function SubmenuItem({
             item.disabled
               ? "disabled:opacity-50 disabled:cursor-not-allowed"
               : ""
-          } ${
-            item.className || ""
           } focus:outline-none focus:ring-0 justify-between`}
           disabled={item.disabled}
           onMouseEnter={() => !item.disabled && setSubmenuOpen(true)}
@@ -104,7 +98,7 @@ function SubmenuItem({
                   child.disabled
                     ? "disabled:opacity-50 disabled:cursor-not-allowed"
                     : ""
-                } ${child.className || ""} focus:outline-none focus:ring-0`}
+                } focus:outline-none focus:ring-0`}
                 onClick={child.onClick}
                 disabled={child.disabled}
               >
@@ -176,7 +170,6 @@ export function DropdownMenu({
   side = "top",
   align = "start",
   sideOffset = 5,
-  className = "",
 }: DropdownMenuProps) {
   const getItemStyles = (
     variant: "default" | "danger" | "active" = "default"
@@ -203,7 +196,7 @@ export function DropdownMenu({
         side={side}
         align={align}
         sideOffset={sideOffset}
-        className={`z-[9999] py-1 px-1 border border-[var(--color-border)] rounded-md shadow-xl min-w-[160px] ${className}`}
+        className="z-[9999] py-1 px-1 border border-[var(--color-border)] rounded-md shadow-xl min-w-[160px]"
         style={{ backgroundColor: "var(--color-card)" }}
       >
         {items.map((item, index) => (
@@ -216,7 +209,7 @@ export function DropdownMenu({
                   item.disabled
                     ? "disabled:opacity-50 disabled:cursor-not-allowed"
                     : ""
-                } ${item.className || ""} focus:outline-none focus:ring-0`}
+                } focus:outline-none focus:ring-0`}
                 onClick={item.onClick}
                 disabled={item.disabled}
               >

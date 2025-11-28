@@ -1,5 +1,6 @@
 import React, { useState, forwardRef, TextareaHTMLAttributes } from "react";
 import clsx from "clsx";
+import type { MessageColor } from "../../theme/types";
 
 /**
  * Props for the TextBoxInput component.
@@ -10,7 +11,7 @@ import clsx from "clsx";
 export interface TextBoxInputProps
   extends Omit<
     TextareaHTMLAttributes<HTMLTextAreaElement>,
-    "onChange" | "size"
+    "onChange" | "size" | "className" | "style"
   > {
   /** Optional label text displayed above the textarea */
   label?: string;
@@ -22,8 +23,8 @@ export interface TextBoxInputProps
   inputSize?: "sm" | "md" | "lg";
   /** Callback fired when the textarea value changes */
   onChange?: (v: string) => void;
-  /** Custom color for the message text (error/helper) */
-  messageColor?: string;
+  /** Color for the message text from theme palette */
+  messageColor?: MessageColor;
   /** Whether to reserve space for messages even when none are shown */
   reserveMessageSpace?: boolean;
 }
@@ -68,7 +69,6 @@ export const TextBoxInput = forwardRef<HTMLTextAreaElement, TextBoxInputProps>(
       disabled,
       onChange,
       inputSize = "md",
-      className,
       messageColor,
       reserveMessageSpace = true,
       rows = 3,
@@ -114,8 +114,7 @@ export const TextBoxInput = forwardRef<HTMLTextAreaElement, TextBoxInputProps>(
             "w-full rounded-md border bg-card text-foreground placeholder-muted resize-y",
             "focus:outline-none transition-all",
             disabled && "cursor-not-allowed opacity-70",
-            sizeClasses[inputSize].input,
-            className
+            sizeClasses[inputSize].input
           )}
           style={{
             borderColor: error
@@ -137,7 +136,7 @@ export const TextBoxInput = forwardRef<HTMLTextAreaElement, TextBoxInputProps>(
               error
                 ? "text-destructive"
                 : messageColor
-                ? messageColor
+                ? `text-${messageColor}`
                 : "text-foreground"
             )}
           >

@@ -14,7 +14,10 @@ const meta: Meta<typeof CheckboxInput> = {
     error: { control: "text" },
     helperText: { control: "text" },
     reserveMessageSpace: { control: "boolean" },
-    messageColor: { control: "text" },
+    messageColor: {
+      control: "select",
+      options: ["primary", "secondary", "accent", "destructive", "success", "warning", "error", "info", "foreground", "muted"],
+    },
   },
 };
 export default meta;

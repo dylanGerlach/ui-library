@@ -128,3 +128,19 @@ export interface ThemeOptions {
   mode?: ThemeMode;
 }
 
+/**
+ * Type-safe color options for message text (error, helper text, etc.)
+ * 
+ * Uses semantic colors from the theme palette.
+ */
+export type MessageColor =
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "destructive"
+  | "success"
+  | "warning"
+  | "error"
+  | "info"
+  | "foreground"
+  | "muted";

@@ -6,9 +6,9 @@ const meta: Meta<typeof Spinner> = {
   component: Spinner,
   tags: ["autodocs"],
   argTypes: {
-    className: {
+    size: {
       control: "text",
-      description: "Tailwind classes to adjust size and color",
+      description: "Size classes (e.g., 'h-6 w-6')",
     },
   },
 };
@@ -18,24 +18,18 @@ type Story = StoryObj<typeof Spinner>;
 
 export const Default: Story = {
   args: {
-    className: "h-6 w-6 text-primary",
+    size: "h-6 w-6",
   },
 };
 
 export const Small: Story = {
   args: {
-    className: "h-4 w-4 text-secondary",
+    size: "h-4 w-4",
   },
 };
 
 export const Large: Story = {
   args: {
-    className: "h-10 w-10 text-accent",
-  },
-};
-
-export const Destructive: Story = {
-  args: {
-    className: "h-6 w-6 text-destructive",
+    size: "h-10 w-10",
   },
 };

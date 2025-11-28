@@ -2,6 +2,7 @@ import Select, { SingleValue } from "react-select";
 import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
 import clsx from "clsx";
+import type { MessageColor } from "../../theme/types";
 
 /**
  * Configuration for a dropdown option.
@@ -39,10 +40,8 @@ export interface DropdownInputProps {
   disabled?: boolean;
   /** Placeholder text when no option is selected */
   placeholder?: string;
-  /** Custom CSS class name */
-  className?: string;
-  /** Custom color for the message text */
-  messageColor?: string;
+  /** Color for the message text from theme palette */
+  messageColor?: MessageColor;
   /** Whether to reserve space for messages even when none are shown */
   reserveMessageSpace?: boolean;
 }
@@ -80,7 +79,6 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
   helperText,
   disabled = false,
   placeholder = "Select...",
-  className,
   messageColor,
   reserveMessageSpace = true,
 }) => {
@@ -97,7 +95,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
 
   return (
     <div
-      className={clsx("space-y-1 w-full", className)}
+      className="space-y-1 w-full"
       style={{ opacity: disabled ? 0.6 : 1 }}
     >
       {label && (
@@ -193,7 +191,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
             error
               ? "text-destructive"
               : messageColor
-              ? messageColor
+              ? `text-${messageColor}`
               : "text-foreground"
           )}
         >

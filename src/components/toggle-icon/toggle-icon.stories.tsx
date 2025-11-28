@@ -10,7 +10,6 @@ const meta: Meta<typeof ToggleIcon> = {
   argTypes: {
     label: { control: "text" },
     disabled: { control: "boolean" },
-    className: { control: "text" },
   },
 };
 

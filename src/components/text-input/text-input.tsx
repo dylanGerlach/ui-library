@@ -1,14 +1,18 @@
 import React, { useState, forwardRef, InputHTMLAttributes } from "react";
 import clsx from "clsx";
+import type { MessageColor } from "../../theme/types";
 
 /**
  * Props for the TextInput component.
- * 
+ *
  * @interface TextInputProps
  * @extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "size">
  */
 export interface TextInputProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "size"> {
+  extends Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    "onChange" | "size" | "className" | "style"
+  > {
   /** Optional label text displayed above the input */
   label?: string;
   /** Error message to display below the input */
@@ -23,8 +27,8 @@ export interface TextInputProps
   endIcon?: React.ReactNode;
   /** Callback fired when the input value changes */
   onChange?: (v: string) => void;
-  /** Custom color for the message text (error/helper) */
-  messageColor?: string;
+  /** Color for the message text (error/helper) from theme palette */
+  messageColor?: MessageColor;
   /** Whether to reserve space for messages even when none are shown */
   reserveMessageSpace?: boolean;
 }
@@ -40,30 +44,30 @@ const sizeClasses: Record<
 
 /**
  * A text input component with label, error handling, icons, and validation states.
- * 
+ *
  * Supports start/end icons, error states, helper text, and multiple sizes.
  * Uses theme colors for styling, so ensure ThemeProvider is set up in your app.
- * 
+ *
  * @example
  * ```tsx
- * <TextInput 
- *   label="Email" 
- *   value={email} 
+ * <TextInput
+ *   label="Email"
+ *   value={email}
  *   onChange={setEmail}
  *   error={errors.email}
  * />
  * ```
- * 
+ *
  * @example
  * ```tsx
- * <TextInput 
+ * <TextInput
  *   label="Search"
  *   startIcon={<SearchIcon />}
  *   placeholder="Search..."
  *   onChange={handleSearch}
  * />
  * ```
- * 
+ *
  * @param props - TextInput props
  * @param ref - Forwarded ref to the underlying input element
  * @returns A styled text input with label and message support
@@ -80,7 +84,6 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       inputSize = "md",
       startIcon,
       endIcon,
-      className,
       messageColor,
       reserveMessageSpace = true,
       ...props
@@ -129,8 +132,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
               disabled && "cursor-not-allowed opacity-70",
               sizeClasses[inputSize].input,
               startIcon && "pl-10",
-              endIcon && "pr-10",
-              className
+              endIcon && "pr-10"
             )}
             style={{
               borderColor: error
@@ -164,7 +166,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
               error
                 ? "text-destructive"
                 : messageColor
-                ? messageColor
+                ? `text-${messageColor}`
                 : "text-foreground"
             )}
           >

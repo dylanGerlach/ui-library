@@ -16,8 +16,6 @@ export interface ToggleIconProps {
   label?: string;
   /** Whether the toggle is disabled */
   disabled?: boolean;
-  /** Custom CSS class name */
-  className?: string;
 }
 
 /**
@@ -46,7 +44,6 @@ export function ToggleIcon({
   onToggle,
   label,
   disabled,
-  className,
 }: ToggleIconProps) {
   return (
     <IconButton
@@ -54,7 +51,6 @@ export function ToggleIcon({
       onClick={onToggle}
       label={label}
       disabled={disabled}
-      className={className}
     >
       {icon}
     </IconButton>
