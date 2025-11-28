@@ -92,14 +92,14 @@ export function Badge({
     destructive: "bg-destructive text-destructive-foreground",
   };
 
-  const positionStyles = absolute
-    ? {
-        "top-right": "absolute -top-1 -right-1",
-        "top-left": "absolute -top-1 -left-1",
-        "bottom-right": "absolute -bottom-1 -right-1",
-        "bottom-left": "absolute -bottom-1 -left-1",
-      }[position]
-    : "";
+        const positionStyles = absolute
+          ? {
+              "top-right": "absolute top-0 right-0",
+              "top-left": "absolute top-0 left-0",
+              "bottom-right": "absolute bottom-0 right-0",
+              "bottom-left": "absolute bottom-0 left-0",
+            }[position]
+          : "";
 
   const badgeElement = (
     <span className={clsx(baseStyles, variantStyles[variant], positionStyles)}>

@@ -105,6 +105,10 @@ export { ThreeDotLoader } from "./components/three-dot-loader/three-dot-loader";
 export { IconButton } from "./components/icon-button/icon-button";
 export { ToggleIcon } from "./components/toggle-icon/toggle-icon";
 export { JsonInput } from "./components/json-input/json-input";
+export { Typography } from "./components/typography/typography";
+export { Badge } from "./components/badge/badge";
+export { Navbar1 } from "./components/navbar1/navbar1";
+export type { Navbar1Props } from "./components/navbar1/navbar1";
 
 // Theme System (MUI-style)
 export { ThemeProvider, useTheme, useThemeMode } from "./theme/ThemeProvider";
