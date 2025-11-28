@@ -109,6 +109,8 @@ export { Typography } from "./components/typography/typography";
 export { Badge } from "./components/badge/badge";
 export { Navbar1 } from "./components/navbar1/navbar1";
 export type { Navbar1Props } from "./components/navbar1/navbar1";
+export { Sidebar } from "./components/sidebar/sidebar";
+export type { SidebarProps } from "./components/sidebar/sidebar";
 
 // Theme System (MUI-style)
 export { ThemeProvider, useTheme, useThemeMode } from "./theme/ThemeProvider";
