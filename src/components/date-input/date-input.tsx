@@ -3,13 +3,26 @@ import DatePicker from "react-datepicker";
 import { TextInput, TextInputProps } from "../text-input/text-input";
 import "react-datepicker/dist/react-datepicker.css";
 
+/**
+ * Mode for the date picker - single date or date range.
+ */
 export type DatePickerMode = "single" | "range";
 
+/**
+ * Props for the DateInput component.
+ * 
+ * @interface DateInputProps
+ * @extends Omit<TextInputProps, "onChange" | "value">
+ */
 export interface DateInputProps
   extends Omit<TextInputProps, "onChange" | "value"> {
+  /** Whether to select a single date or a date range */
   mode?: DatePickerMode;
+  /** Current date value (ISO format string for single, tuple for range) */
   value: string | [string, string];
+  /** Callback fired when the date changes */
   onChange: (val: string | [string, string]) => void;
+  /** Whether to prevent selecting future dates */
   preventFuture?: boolean;
 }
 
@@ -49,6 +62,39 @@ const DateInputText = forwardRef<
 
 DateInputText.displayName = "DateInputText";
 
+/**
+ * A date input component with a calendar picker interface.
+ * 
+ * Supports single date selection or date ranges. Formats dates in ISO format
+ * for backend compatibility while displaying in a human-friendly format.
+ * Uses theme colors for styling, so ensure ThemeProvider is set up in your app.
+ * 
+ * @example
+ * ```tsx
+ * <DateInput
+ *   label="Start Date"
+ *   value={startDate}
+ *   onChange={setStartDate}
+ *   preventFuture
+ * />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * // Date range
+ * <DateInput
+ *   mode="range"
+ *   value={[startDate, endDate]}
+ *   onChange={([start, end]) => {
+ *     setStartDate(start);
+ *     setEndDate(end);
+ *   }}
+ * />
+ * ```
+ * 
+ * @param props - DateInput props
+ * @returns A date picker component
+ */
 export const DateInput = ({
   label,
   mode = "single",

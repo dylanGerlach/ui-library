@@ -1,16 +1,31 @@
 import React, { useState, forwardRef, InputHTMLAttributes } from "react";
 import clsx from "clsx";
 
+/**
+ * Props for the TextInput component.
+ * 
+ * @interface TextInputProps
+ * @extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "size">
+ */
 export interface TextInputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "size"> {
+  /** Optional label text displayed above the input */
   label?: string;
+  /** Error message to display below the input */
   error?: string;
+  /** Helper text to display below the input */
   helperText?: string;
+  /** Size of the input field */
   inputSize?: "sm" | "md" | "lg";
+  /** Icon to display at the start (left) of the input */
   startIcon?: React.ReactNode;
+  /** Icon to display at the end (right) of the input */
   endIcon?: React.ReactNode;
+  /** Callback fired when the input value changes */
   onChange?: (v: string) => void;
+  /** Custom color for the message text (error/helper) */
   messageColor?: string;
+  /** Whether to reserve space for messages even when none are shown */
   reserveMessageSpace?: boolean;
 }
 
@@ -23,6 +38,36 @@ const sizeClasses: Record<
   lg: { input: "px-4 py-3 text-lg", icon: "w-6 h-6" },
 };
 
+/**
+ * A text input component with label, error handling, icons, and validation states.
+ * 
+ * Supports start/end icons, error states, helper text, and multiple sizes.
+ * Uses theme colors for styling, so ensure ThemeProvider is set up in your app.
+ * 
+ * @example
+ * ```tsx
+ * <TextInput 
+ *   label="Email" 
+ *   value={email} 
+ *   onChange={setEmail}
+ *   error={errors.email}
+ * />
+ * ```
+ * 
+ * @example
+ * ```tsx
+ * <TextInput 
+ *   label="Search"
+ *   startIcon={<SearchIcon />}
+ *   placeholder="Search..."
+ *   onChange={handleSearch}
+ * />
+ * ```
+ * 
+ * @param props - TextInput props
+ * @param ref - Forwarded ref to the underlying input element
+ * @returns A styled text input with label and message support
+ */
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
@@ -58,7 +103,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           {startIcon && (
             <span
               className={clsx(
-                "absolute left-3 text-muted-foreground flex items-center justify-center",
+                "absolute left-3 text-foreground flex items-center justify-center",
                 sizeClasses[inputSize].icon
               )}
             >
@@ -103,7 +148,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           {endIcon && (
             <span
               className={clsx(
-                "absolute right-3 text-muted-foreground flex items-center justify-center",
+                "absolute right-3 text-foreground flex items-center justify-center",
                 sizeClasses[inputSize].icon
               )}
             >
@@ -120,7 +165,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
                 ? "text-destructive"
                 : messageColor
                 ? messageColor
-                : "text-muted-foreground"
+                : "text-foreground"
             )}
           >
             {showMessage ? error || helperText : ""}

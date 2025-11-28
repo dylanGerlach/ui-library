@@ -92,3 +92,22 @@ export const FullWidth: Story = {
     fullWidth: true,
   },
 };
+
+// Enhanced story showcasing all variants
+export const AllVariants: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="flex gap-4">
+        <Button variant="primary">Primary</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="accent">Accent</Button>
+        <Button variant="destructive">Destructive</Button>
+      </div>
+      <div className="flex gap-4">
+        <Button size="sm">Small</Button>
+        <Button size="md">Medium</Button>
+        <Button size="lg">Large</Button>
+      </div>
+    </div>
+  ),
+};

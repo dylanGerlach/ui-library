@@ -2,15 +2,46 @@ import { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { TextInput, TextInputProps } from "../text-input/text-input";
 
+/**
+ * Props for the PasswordInput component.
+ * 
+ * @interface PasswordInputProps
+ * @extends Omit<TextInputProps, "type" | "onChange">
+ */
 export interface PasswordInputProps
   extends Omit<TextInputProps, "type" | "onChange"> {
+  /** Current password value */
   value: string;
+  /** Callback fired when the password value changes */
   onChange: (val: string) => void;
+  /** Autocomplete attribute value */
   autoComplete?: string;
+  /** Whether to show password strength indicator */
   showStrength?: boolean;
+  /** Key to reset the component state (useful for form resets) */
   resetKey?: string;
 }
 
+/**
+ * A password input component with visibility toggle and optional strength indicator.
+ * 
+ * Extends TextInput with password-specific features: show/hide toggle and
+ * optional password strength calculation. Uses theme colors for styling, so
+ * ensure ThemeProvider is set up in your app.
+ * 
+ * @example
+ * ```tsx
+ * <PasswordInput
+ *   label="Password"
+ *   value={password}
+ *   onChange={setPassword}
+ *   showStrength
+ * />
+ * ```
+ * 
+ * @param props - PasswordInput props
+ * @returns A styled password input with visibility toggle
+ */
 export function PasswordInput({
   value,
   onChange,

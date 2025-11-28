@@ -1,28 +1,75 @@
-import * as Select from "@radix-ui/react-select";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import Select, { SingleValue } from "react-select";
+import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
 import clsx from "clsx";
 
+/**
+ * Configuration for a dropdown option.
+ * 
+ * @interface DropdownOption
+ */
 export interface DropdownOption {
+  /** Unique identifier for the option */
   id: string | number;
+  /** Display name for the option */
   name: string;
 }
 
+/**
+ * Props for the DropdownInput component.
+ * 
+ * @interface DropdownInputProps
+ */
 export interface DropdownInputProps {
+  /** Optional label text displayed above the dropdown */
   label?: string;
+  /** Currently selected value (must match an option's id) */
   value: string | number | null;
+  /** Callback fired when the selection changes */
   onChange: (val: string | number | null) => void;
+  /** Array of options to display in the dropdown */
   options: DropdownOption[];
+  /** Whether the dropdown is required */
   required?: boolean;
+  /** Error message to display below the dropdown */
   error?: string;
+  /** Helper text to display below the dropdown */
   helperText?: string;
+  /** Whether the dropdown is disabled */
   disabled?: boolean;
+  /** Placeholder text when no option is selected */
   placeholder?: string;
+  /** Custom CSS class name */
   className?: string;
+  /** Custom color for the message text */
   messageColor?: string;
+  /** Whether to reserve space for messages even when none are shown */
   reserveMessageSpace?: boolean;
 }
 
+/**
+ * A single-select dropdown input component.
+ * 
+ * Built on react-select with theme integration. Supports error states,
+ * helper text, and validation. Uses theme colors for styling, so ensure
+ * ThemeProvider is set up in your app.
+ * 
+ * @example
+ * ```tsx
+ * <DropdownInput
+ *   label="Country"
+ *   value={selectedCountry}
+ *   onChange={setSelectedCountry}
+ *   options={[
+ *     { id: "us", name: "United States" },
+ *     { id: "uk", name: "United Kingdom" },
+ *   ]}
+ * />
+ * ```
+ * 
+ * @param props - DropdownInput props
+ * @returns A styled dropdown select component
+ */
 export const DropdownInput: React.FC<DropdownInputProps> = ({
   label,
   value,
@@ -40,6 +87,14 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const showMessage = error || helperText;
 
+  const reactSelectOptions = options.map((opt) => ({
+    value: opt.id,
+    label: opt.name,
+  }));
+
+  const selectedOption =
+    reactSelectOptions.find((opt) => opt.value === value) || null;
+
   return (
     <div
       className={clsx("space-y-1 w-full", className)}
@@ -52,67 +107,84 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
         </label>
       )}
 
-      <Select.Root
-        value={value?.toString() ?? ""}
-        onValueChange={(val) => onChange(val === "" ? null : val)}
-        disabled={disabled}
+      <div
+        className={clsx(
+          "rounded-md transition-all",
+          disabled && "cursor-not-allowed opacity-70"
+        )}
       >
-        <Select.Trigger
+        <Select
+          value={selectedOption}
+          onChange={(
+            newValue: SingleValue<{ value: string | number; label: string }>
+          ) => onChange(newValue ? newValue.value : null)}
+          options={reactSelectOptions}
+          isDisabled={disabled}
+          placeholder={placeholder}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          className={clsx(
-            "flex items-center justify-between w-full rounded-md border px-3 py-2 text-foreground bg-card",
-            "focus:outline-none transition-all",
-            disabled && "cursor-not-allowed opacity-70"
-          )}
-          style={{
-            borderColor: error
-              ? "var(--color-destructive)"
-              : "var(--color-border)",
-            // ✅ Removed blue box-shadow completely
-            boxShadow: error ? "0 0 0 2px var(--color-destructive)" : "none",
+          classNamePrefix="rs"
+          styles={{
+            indicatorsContainer: (base) => ({
+              ...base,
+              color: "var(--color-muted)",
+            }),
+            control: (base, state) => ({
+              ...base,
+              backgroundColor: "var(--color-card)",
+              borderRadius: "0.375rem",
+              borderWidth: "2px",
+              borderStyle: "solid",
+              borderColor: error
+                ? "var(--color-destructive)"
+                : "var(--color-border)",
+              boxShadow: error
+                ? "0 0 0 2px var(--color-destructive)"
+                : state.isFocused
+                ? "0 0 0 2px var(--color-primary)"
+                : "none",
+              "&:hover": {
+                borderColor: error
+                  ? "var(--color-destructive)"
+                  : "var(--color-border)",
+              },
+            }),
+            menu: (base) => ({
+              ...base,
+              backgroundColor: "var(--color-card)",
+              border: "2px solid var(--color-border)",
+              borderRadius: "0.375rem",
+              marginTop: "0.25rem",
+              boxShadow:
+                "0px 4px 6px rgba(0,0,0,0.1), 0px 2px 4px rgba(0,0,0,0.06)",
+            }),
+            option: (base, state) => ({
+              ...base,
+              backgroundColor: state.isSelected
+                ? "var(--color-card)"
+                : state.isFocused
+                ? "var(--color-border)"
+                : "var(--color-card)",
+              color: "var(--color-foreground)",
+              cursor: "pointer",
+            }),
+            singleValue: (base) => ({
+              ...base,
+              color: "var(--color-foreground)",
+            }),
+            placeholder: (base) => ({
+              ...base,
+              color: "var(--color-muted)",
+            }),
           }}
-        >
-          <Select.Value placeholder={placeholder} />
-          <Select.Icon>
-            <ChevronDown className="w-4 h-4 text-muted-foreground" />
-          </Select.Icon>
-        </Select.Trigger>
-
-        <Select.Portal>
-          <Select.Content
-            className="z-50 rounded-md border shadow-md bg-card text-foreground"
-            sideOffset={4}
-            style={{ borderColor: "var(--color-border)" }}
-          >
-            <Select.ScrollUpButton className="flex items-center justify-center py-1 text-muted-foreground">
-              <ChevronUp className="w-4 h-4" />
-            </Select.ScrollUpButton>
-
-            <Select.Viewport className="p-1">
-              {options.map((opt) => (
-                <Select.Item
-                  key={opt.id}
-                  value={opt.id.toString()}
-                  className={clsx(
-                    "flex items-center justify-between rounded px-2 py-1 cursor-pointer",
-                    "focus:bg-card/70 focus:text-foreground"
-                  )}
-                >
-                  <Select.ItemText>{opt.name}</Select.ItemText>
-                  <Select.ItemIndicator>
-                    <Check className="w-4 h-4 text-muted-foreground" />
-                  </Select.ItemIndicator>
-                </Select.Item>
-              ))}
-            </Select.Viewport>
-
-            <Select.ScrollDownButton className="flex items-center justify-center py-1 text-muted-foreground">
-              <ChevronDown className="w-4 h-4" />
-            </Select.ScrollDownButton>
-          </Select.Content>
-        </Select.Portal>
-      </Select.Root>
+          components={{
+            DropdownIndicator: () => (
+              <ChevronDown className="w-4 h-4 text-foreground mr-2" />
+            ),
+            IndicatorSeparator: () => null,
+          }}
+        />
+      </div>
 
       {(showMessage || reserveMessageSpace) && (
         <p
@@ -122,7 +194,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
               ? "text-destructive"
               : messageColor
               ? messageColor
-              : "text-muted-foreground"
+              : "text-foreground"
           )}
         >
           {showMessage ? error || helperText : ""}

@@ -1,10 +1,29 @@
 import clsx from "clsx";
 
+/**
+ * Props for the ThreeDotLoader component.
+ */
 type ThreeDotLoaderProps = {
+  /** Custom CSS class name */
   className?: string;
+  /** Animation speed of the dots */
   pace?: "slow" | "medium" | "fast";
 };
 
+/**
+ * A loading indicator with three animated dots.
+ * 
+ * Inherits text color from parent, so it adapts to theme colors.
+ * Used internally by Button component when isLoading is true.
+ * 
+ * @example
+ * ```tsx
+ * <ThreeDotLoader pace="fast" className="h-4 w-4" />
+ * ```
+ * 
+ * @param props - ThreeDotLoader props
+ * @returns A three-dot loading animation
+ */
 export function ThreeDotLoader({
   className,
   pace = "medium",

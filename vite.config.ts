@@ -11,8 +11,13 @@ export default defineConfig({
       // Global name for UMD builds (if used)
       name: "UiLibrary",
       // File naming pattern, per format
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format) => {
+        if (format === "es") return "index.esm.js";
+        if (format === "umd") return "index.js";
+        return `index.${format}.js`;
+      },
     },
+    cssCodeSplit: false,
     rollupOptions: {
       // Prevent bundling these dependencies — users of your library bring their own React
       external: ["react", "react-dom"],
@@ -20,6 +25,12 @@ export default defineConfig({
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
+        },
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith(".css")) {
+            return "index.css";
+          }
+          return assetInfo.name || "asset";
         },
       },
     },

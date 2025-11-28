@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.1",
+  "components": [
+    {
+      "name": "Button",
+      "path": "src/components/button/button.tsx",
+      "category": "buttons",
+      "description": "A versatile button component with multiple variants, sizes, and states. Supports loading states, icons, and full-width layouts."
+    },
+    {
+      "name": "TextInput",
+      "path": "src/components/text-input/text-input.tsx",
+      "category": "form-inputs",
+      "description": "A text input component with label, error handling, icons, and validation states."
+    },
+    {
+      "name": "TextBoxInput",
+      "path": "src/components/text-box-input/text-box-input.tsx",
+      "category": "form-inputs",
+      "description": "A multi-line text input component (textarea) with label, error handling, and validation states."
+    },
+    {
+      "name": "EmailInput",
+      "path": "src/components/email-input/email-input.tsx",
+      "category": "form-inputs",
+      "description": "An email input component with built-in validation."
+    },
+    {
+      "name": "PasswordInput",
+      "path": "src/components/password-input/password-input.tsx",
+      "category": "form-inputs",
+      "description": "A password input component with visibility toggle and optional strength indicator."
+    },
+    {
+      "name": "DateInput",
+      "path": "src/components/date-input/date-input.tsx",
+      "category": "form-inputs",
+      "description": "A date input component with a calendar picker interface. Supports single date selection or date ranges."
+    },
+    {
+      "name": "CheckboxInput",
+      "path": "src/components/checkbox-input/checkbox-input.tsx",
+      "category": "form-inputs",
+      "description": "A checkbox input component with label, error handling, and validation states."
+    },
+    {
+      "name": "DropdownInput",
+      "path": "src/components/dropdown-input/dropdown-input.tsx",
+      "category": "form-inputs",
+      "description": "A single-select dropdown input component built on react-select with theme integration."
+    },
+    {
+      "name": "PaginatedDropdownInput",
+      "path": "src/components/paginated-dropdown-input/paginated-dropdown-input.tsx",
+      "category": "form-inputs",
+      "description": "A paginated dropdown input component with async loading support. Built on react-select with async pagination capabilities."
+    },
+    {
+      "name": "JsonInput",
+      "path": "src/components/json-input/json-input.tsx",
+      "category": "form-inputs",
+      "description": "A JSON input component with syntax validation and formatting."
+    },
+    {
+      "name": "ColorSelector",
+      "path": "src/components/color-selector/color-selector.tsx",
+      "category": "form-inputs",
+      "description": "A color picker component with a popover interface. Provides both simple and advanced color selection modes."
+    },
+    {
+      "name": "IconButton",
+      "path": "src/components/icon-button/icon-button.tsx",
+      "category": "buttons",
+      "description": "A button component designed for displaying icons. Shows a border highlight when active."
+    },
+    {
+      "name": "ToggleIcon",
+      "path": "src/components/toggle-icon/toggle-icon.tsx",
+      "category": "buttons",
+      "description": "A toggleable icon button component. Wraps IconButton with toggle state management."
+    },
+    {
+      "name": "DropdownMenu",
+      "path": "src/components/dropdown-menu/dropdown-menu.tsx",
+      "category": "menus",
+      "description": "A dropdown menu component with support for nested submenus, icons, and variants. Uses a props-based API."
+    },
+    {
+      "name": "Spinner",
+      "path": "src/components/spinner/spinner.tsx",
+      "category": "loading",
+      "description": "A loading spinner component using a rotating icon. Inherits text color from parent."
+    },
+    {
+      "name": "ThreeDotLoader",
+      "path": "src/components/three-dot-loader/three-dot-loader.tsx",
+      "category": "loading",
+      "description": "A loading indicator with three animated dots. Used internally by Button component when isLoading is true."
+    }
+  ],
+  "theme": {
+    "name": "ThemeProvider",
+    "path": "src/theme/ThemeProvider.tsx",
+    "description": "Theme provider component that supplies theme context to all child components. REQUIRED for library usage."
+  },
+  "utilities": {
+    "createTheme": {
+      "path": "src/theme/createTheme.ts",
+      "description": "Creates a theme object with the specified options (MUI-style API)."
+    },
+    "useTheme": {
+      "path": "src/theme/ThemeProvider.tsx",
+      "description": "Hook to access the current theme object."
+    },
+    "useThemeMode": {
+      "path": "src/theme/ThemeProvider.tsx",
+      "description": "Hook to access and control the theme mode (light/dark)."
+    }
+  },
+  "types": {
+    "path": "src/theme/types.ts",
+    "exports": [
+      "Theme",
+      "ThemeOptions",
+      "ThemeMode",
+      "Palette",
+      "PaletteOptions",
+      "PaletteColor",
+      "DropdownMenuItem",
+      "DropdownMenuProps"
+    ]
+  }
+}
+

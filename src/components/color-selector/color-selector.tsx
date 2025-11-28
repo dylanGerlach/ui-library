@@ -55,15 +55,44 @@ const COLORS = [
   "#9999FF",
 ];
 
+/**
+ * Props for the ColorSelector component.
+ * 
+ * @interface ColorSelectorProps
+ */
 export interface ColorSelectorProps {
+  /** Custom trigger element (defaults to a color swatch button) */
   trigger?: React.ReactNode;
+  /** Current color value (hex format) */
   value?: string;
+  /** Callback fired when the color changes */
   onChange: (color: string) => void;
+  /** Optional label text */
   label?: string;
+  /** Default color value if value is not provided */
   defaultValue?: string;
+  /** Whether the selector is disabled */
   disabled?: boolean;
 }
 
+/**
+ * A color picker component with a popover interface.
+ * 
+ * Provides both a simple color picker and an advanced mode with hex/RGB input.
+ * Uses theme colors for styling, so ensure ThemeProvider is set up in your app.
+ * 
+ * @example
+ * ```tsx
+ * <ColorSelector
+ *   value={color}
+ *   onChange={setColor}
+ *   label="Background Color"
+ * />
+ * ```
+ * 
+ * @param props - ColorSelector props
+ * @returns A color picker component
+ */
 export function ColorSelector({
   trigger,
   value,
@@ -86,7 +115,7 @@ export function ColorSelector({
           disabled={disabled}
           className={clsx(
             "relative flex items-center justify-center rounded-md p-2 border transition-colors",
-            "bg-card text-muted-foreground",
+            "bg-card text-foreground",
             "hover:bg-muted/10 focus:outline-none focus:ring-2 focus:ring-primary",
             disabled && "opacity-50 cursor-not-allowed"
           )}
