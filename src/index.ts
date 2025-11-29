@@ -1,18 +1,18 @@
 /**
  * @packageDocumentation
- * 
+ *
  * # UI Library
- * 
+ *
  * A React component library built with Tailwind CSS and MUI-style theming.
- * 
+ *
  * ## Getting Started
- * 
+ *
  * **IMPORTANT**: This library requires MUI-style theming. You must wrap your app
  * with `ThemeProvider` and define a palette using `createTheme()`.
- * 
+ *
  * ```tsx
  * import { ThemeProvider, createTheme } from "dylangerlach-ui-library";
- * 
+ *
  * const theme = createTheme({
  *   palette: {
  *     primary: {
@@ -21,7 +21,7 @@
  *     },
  *   },
  * });
- * 
+ *
  * function App() {
  *   return (
  *     <ThemeProvider theme={theme}>
@@ -30,9 +30,9 @@
  *   );
  * }
  * ```
- * 
+ *
  * ## Components
- * 
+ *
  * ### Form Inputs
  * - {@link TextInput} - Single-line text input with label, error handling, and icons
  * - {@link TextBoxInput} - Multi-line text input (textarea) with validation
@@ -44,40 +44,40 @@
  * - {@link PaginatedDropdownInput} - Async dropdown with pagination support
  * - {@link JsonInput} - JSON textarea with syntax validation
  * - {@link ColorSelector} - Color picker with popover interface
- * 
+ *
  * ### Buttons & Actions
  * - {@link Button} - Versatile button with variants, sizes, and loading states
  * - {@link IconButton} - Button designed for displaying icons
  * - {@link ToggleIcon} - Toggleable icon button
- * 
+ *
  * ### Menus & Navigation
  * - {@link DropdownMenu} - Dropdown menu with nested submenu support
- * 
+ *
  * ### Loading Indicators
  * - {@link Spinner} - Simple spinning loader icon
  * - {@link ThreeDotLoader} - Three-dot loading animation
- * 
+ *
  * ## Theming
- * 
+ *
  * This library uses MUI-style theming. All components use theme colors via CSS variables.
- * 
+ *
  * ### Required Setup
- * 
+ *
  * 1. Import the CSS file: `import "dylangerlach-ui-library/dist/index.css"`
  * 2. Create a theme using `createTheme()` with your palette
  * 3. Wrap your app with `ThemeProvider`
- * 
+ *
  * ### Theme Structure
- * 
+ *
  * The theme follows Material-UI's palette structure:
  * - `primary`, `secondary`, `accent` - Brand colors
  * - `success`, `warning`, `error`, `info` - Semantic colors
  * - `background.default`, `background.paper` - Background colors
  * - `text.primary`, `text.secondary`, `text.disabled` - Text colors
  * - `divider`, `border` - Border colors
- * 
+ *
  * See {@link Palette} and {@link PaletteOptions} for full structure.
- * 
+ *
  * @module
  */
 
@@ -107,6 +107,8 @@ export { ToggleIcon } from "./components/toggle-icon/toggle-icon";
 export { JsonInput } from "./components/json-input/json-input";
 export { Typography } from "./components/typography/typography";
 export { Badge } from "./components/badge/badge";
+export { Message } from "./components/message/message";
+export type { MessageProps } from "./components/message/message";
 export { Navbar1 } from "./components/navbar1/navbar1";
 export type { Navbar1Props } from "./components/navbar1/navbar1";
 export { Sidebar } from "./components/sidebar/sidebar";

@@ -8,13 +8,35 @@ const meta: Meta<typeof Typography> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["h1", "h2", "h3", "h4", "h5", "h6", "p", "span", "label", "caption"],
+      options: [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "p",
+        "span",
+        "label",
+        "caption",
+      ],
       description: "Typography variant",
       defaultValue: "p",
     },
     color: {
       control: "select",
-      options: ["primary", "secondary", "accent", "destructive", "success", "warning", "error", "info", "foreground", "muted"],
+      options: [
+        "primary",
+        "secondary",
+        "accent",
+        "destructive",
+        "success",
+        "warning",
+        "error",
+        "info",
+        "foreground",
+        "muted",
+      ],
       description: "Text color from theme palette",
     },
     href: {
@@ -24,6 +46,14 @@ const meta: Meta<typeof Typography> = {
     active: {
       control: "boolean",
       description: "Whether the text is in an active state",
+    },
+    bold: {
+      control: "boolean",
+      description: "Whether the text should be bold",
+    },
+    italic: {
+      control: "boolean",
+      description: "Whether the text should be italic",
     },
   },
 };
@@ -55,7 +85,8 @@ export const Heading3: Story = {
 export const Paragraph: Story = {
   args: {
     variant: "p",
-    children: "This is a paragraph of text that demonstrates the typography component.",
+    children:
+      "This is a paragraph of text that demonstrates the typography component.",
   },
 };
 
@@ -88,7 +119,9 @@ export const AllVariants: Story = {
       <Typography variant="p">Paragraph text</Typography>
       <Typography variant="label">Label text</Typography>
       <Typography variant="caption">Caption text</Typography>
-      <Typography variant="p" href="#">Link text</Typography>
+      <Typography variant="p" href="#">
+        Link text
+      </Typography>
       <Typography variant="p" href="#" active>
         Active link text
       </Typography>
@@ -113,3 +146,27 @@ export const Colors: Story = {
   ),
 };
 
+export const Bold: Story = {
+  args: {
+    variant: "p",
+    bold: true,
+    children: "This text is bold",
+  },
+};
+
+export const Italic: Story = {
+  args: {
+    variant: "p",
+    italic: true,
+    children: "This text is italic",
+  },
+};
+
+export const BoldAndItalic: Story = {
+  args: {
+    variant: "p",
+    bold: true,
+    italic: true,
+    children: "This text is both bold and italic",
+  },
+};

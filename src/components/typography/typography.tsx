@@ -64,6 +64,10 @@ export interface TypographyProps {
   onClick?: (e: React.MouseEvent) => void;
   /** Whether the text is in an active state (useful for navigation links) */
   active?: boolean;
+  /** Whether the text should be bold */
+  bold?: boolean;
+  /** Whether the text should be italic */
+  italic?: boolean;
   /** Text content */
   children: React.ReactNode;
 }
@@ -89,6 +93,14 @@ export interface TypographyProps {
  * </Typography>
  * ```
  *
+ * @example
+ * ```tsx
+ * // With bold and italic
+ * <Typography variant="p" bold italic>
+ *   Bold and italic text
+ * </Typography>
+ * ```
+ *
  * @param props - Typography props
  * @returns A styled text element or link
  */
@@ -99,6 +111,8 @@ export function Typography({
   href,
   onClick,
   active = false,
+  bold = false,
+  italic = false,
   children,
 }: TypographyProps) {
   // Determine the element to render
@@ -169,12 +183,18 @@ export function Typography({
   // Active state styles (adds font weight if not already bold)
   const activeStyles = active && !color ? "font-semibold" : "";
 
+  // Bold and italic styles
+  const boldStyle = bold ? "font-bold" : "";
+  const italicStyle = italic ? "italic" : "";
+
   const combinedClassName = clsx(
     baseStyles,
     variantStyles[variant],
     colorStyles[selectedColor],
     linkStyles,
-    activeStyles
+    activeStyles,
+    boldStyle,
+    italicStyle
   );
 
   const elementProps = {
