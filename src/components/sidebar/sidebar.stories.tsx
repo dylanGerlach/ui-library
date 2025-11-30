@@ -615,18 +615,24 @@ export const WithNavbar: Story = {
               <div className="mb-4">
                 <Typography variant="h3">Main Content Area</Typography>
               </div>
-              <Typography variant="p" className="mb-2">
-                This story demonstrates the sidebar and navbar working together
-                with responsive behavior.
-              </Typography>
-              <Typography variant="p" className="mb-2">
-                On desktop (≥768px): Sidebar is in normal flow and always
-                visible. Toggle button opens/closes it.
-              </Typography>
-              <Typography variant="p" className="mb-2">
-                On mobile (&lt;768px): Sidebar uses overlay mode and can be
-                toggled with the button.
-              </Typography>
+              <div className="mb-2">
+                <Typography variant="p">
+                  This story demonstrates the sidebar and navbar working together
+                  with responsive behavior.
+                </Typography>
+              </div>
+              <div className="mb-2">
+                <Typography variant="p">
+                  On desktop (≥768px): Sidebar is in normal flow and always
+                  visible. Toggle button opens/closes it.
+                </Typography>
+              </div>
+              <div className="mb-2">
+                <Typography variant="p">
+                  On mobile (&lt;768px): Sidebar uses overlay mode and can be
+                  toggled with the button.
+                </Typography>
+              </div>
               <Typography variant="p">
                 Current mode:{" "}
                 {isMobile ? "Mobile (Overlay)" : "Desktop (Normal)"}

@@ -202,7 +202,6 @@ export const WithSearchBar: Story = {
                 placeholder="Search..."
                 startIcon={<Search size={18} />}
                 inputSize="md"
-                reserveMessageSpace={false}
               />
             </div>
           </div>,
@@ -255,7 +254,6 @@ export const Ecommerce: Story = {
                 placeholder="Search..."
                 startIcon={<Search size={18} />}
                 inputSize="md"
-                reserveMessageSpace={false}
               />
             </div>
           </div>,

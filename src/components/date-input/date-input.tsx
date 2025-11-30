@@ -106,7 +106,6 @@ export const DateInput = ({
   required,
   helperText,
   messageColor,
-  reserveMessageSpace = true,
   ...props
 }: DateInputProps) => {
   const today = new Date();
@@ -158,7 +157,6 @@ export const DateInput = ({
           required={required}
           disabled={disabled}
           messageColor={messageColor}
-          reserveMessageSpace={reserveMessageSpace}
           value={selected ? formatDisplay(selected) : ""}
         />
       }
@@ -187,7 +185,6 @@ export const DateInput = ({
           required={required}
           disabled={disabled}
           messageColor={messageColor}
-          reserveMessageSpace={reserveMessageSpace}
           value={
             range[0] && range[1]
               ? `${formatDisplay(range[0])} – ${formatDisplay(range[1])}`
