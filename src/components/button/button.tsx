@@ -23,6 +23,8 @@ type ButtonProps = {
   isLoading?: boolean;
   /** Whether the button should span the full width of its container */
   fullWidth?: boolean;
+  /** Whether the button should have a CTA pop effect (enhanced shadow and hover scale) */
+  pop?: boolean;
   /** Optional icon to display in the button */
   icon?: React.ReactNode;
   /** Position of the icon relative to the button text */
@@ -64,6 +66,12 @@ type ButtonProps = {
  * <Button variant="primary" rounded="none">Rectangular Button</Button>
  * ```
  *
+ * @example
+ * ```tsx
+ * // CTA button with pop effect
+ * <Button variant="primary" pop>Get Started</Button>
+ * ```
+ *
  * @param props - Button props including all standard HTML button attributes
  * @returns A styled button element
  */
@@ -75,12 +83,13 @@ export function Button({
   disabled = false,
   isLoading = false,
   fullWidth = false,
+  pop = false,
   icon,
   iconPosition = "left",
   ...props
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center font-medium border-0 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-0 transition-colors disabled:opacity-50";
+    "inline-flex items-center justify-center font-medium border-0 focus:outline-none transition-all disabled:opacity-50";
 
   const sizes: Record<string, string> = {
     sm: "px-2 py-1 text-sm",
@@ -103,6 +112,10 @@ export function Button({
     destructive: "bg-destructive text-destructive-foreground hover:opacity-90",
   };
 
+  const popStyles = pop
+    ? "shadow-lg hover:shadow-xl hover:scale-105 active:scale-100"
+    : "";
+
   return (
     <button
       disabled={disabled || isLoading}
@@ -111,7 +124,8 @@ export function Button({
         sizes[size],
         roundedStyles[rounded],
         variants[variant],
-        fullWidth && "w-full"
+        fullWidth && "w-full",
+        popStyles
       )}
       aria-busy={isLoading}
       {...props}

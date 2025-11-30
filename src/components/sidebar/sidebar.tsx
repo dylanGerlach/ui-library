@@ -15,7 +15,7 @@ export interface SidebarProps {
   border?: "left" | "right" | "none";
   /** Padding size */
   padding?: "none" | "sm" | "md" | "lg";
-  /** Whether the sidebar overlays content (fixed) or pushes content (normal flow) */
+  /** Whether the sidebar overlays content (absolute) or pushes content (normal flow) */
   overlay?: boolean;
   /** Controlled open state (if provided with onOpenChange, enables collapsible behavior) */
   isOpen?: boolean;
@@ -112,8 +112,8 @@ export function Sidebar({
         overlay || isOpen ? borderClasses[border] : "",
         // Padding: show when overlay or open, hide when collapsed in normal flow
         overlay || isOpen ? paddingClasses[padding] : "",
-        // Overlay mode: fixed positioning
-        overlay && ["fixed top-0 left-0 h-full z-40", "shadow-lg"],
+        // Overlay mode: absolute positioning (relative to container)
+        overlay && ["absolute top-0 left-0 h-full z-40", "shadow-lg"],
         // Collapsible animation
         overlay
           ? // Overlay mode: use transform to slide
@@ -150,7 +150,7 @@ export function Sidebar({
       {/* Overlay backdrop - dims background when sidebar overlays content */}
       {showOverlay && (
         <div
-          className="fixed inset-0 top-0 z-30 bg-black/50"
+          className="fixed inset-0 top-0 z-30"
           onClick={() => onOpenChange?.(false)}
         />
       )}

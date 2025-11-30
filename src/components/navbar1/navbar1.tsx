@@ -62,7 +62,7 @@ export function Navbar1({
   return (
     <>
       {/* Main navbar */}
-      <div className="px-6 py-3 flex items-center justify-between gap-4 w-full bg-card">
+      <div className="px-6 py-3 flex items-center justify-between gap-4 w-full bg-background border-b border-border">
         {/* Left side: Logo and left elements */}
         <div className="flex items-center gap-6">
           {/* Logo */}
@@ -120,7 +120,7 @@ export function Navbar1({
         (rightElements && rightElements.length > 0)) && (
         <div
           className={clsx(
-            "transition-all duration-300 overflow-hidden md:hidden bg-card",
+            "transition-all duration-300 overflow-hidden md:hidden bg-background",
             menuOpen ? "max-h-96 py-4 border-b border-border" : "max-h-0 py-0"
           )}
         >

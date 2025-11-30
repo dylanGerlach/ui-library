@@ -29,8 +29,6 @@ export interface TextInputProps
   onChange?: (v: string) => void;
   /** Color for the message text (error/helper) from theme palette */
   messageColor?: MessageColor;
-  /** Whether to reserve space for messages even when none are shown */
-  reserveMessageSpace?: boolean;
 }
 
 const sizeClasses: Record<
@@ -85,7 +83,6 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       startIcon,
       endIcon,
       messageColor,
-      reserveMessageSpace = true,
       ...props
     },
     ref
@@ -159,10 +156,10 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           )}
         </div>
 
-        {(showMessage || reserveMessageSpace) && (
+        {showMessage && (
           <p
             className={clsx(
-              "text-sm mt-1 min-h-[1.25rem]",
+              "text-sm mt-1",
               error
                 ? "text-destructive"
                 : messageColor
@@ -170,7 +167,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
                 : "text-foreground"
             )}
           >
-            {showMessage ? error || helperText : ""}
+            {error || helperText}
           </p>
         )}
       </div>

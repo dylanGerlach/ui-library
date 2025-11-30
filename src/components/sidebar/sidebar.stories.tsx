@@ -5,6 +5,10 @@ import { Button } from "../button/button";
 import { Typography } from "../typography/typography";
 import { Plus, Library, MoreHorizontal, PanelLeft } from "lucide-react";
 import { DropdownMenu } from "../dropdown-menu/dropdown-menu";
+import { Navbar1 } from "../navbar1/navbar1";
+import { IconButton } from "../icon-button/icon-button";
+import { Badge } from "../badge/badge";
+import { UserCircle, ShoppingCart } from "lucide-react";
 
 const meta: Meta<typeof Sidebar> = {
   title: "Components/Sidebar",
@@ -491,6 +495,144 @@ export const ResponsiveDesktopMobile: Story = {
           <Typography variant="p">
             Current mode: {isMobile ? "Mobile (Overlay)" : "Desktop (Normal)"}
           </Typography>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithNavbar: Story = {
+  render: () => {
+    const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+    const [isOpen, setIsOpen] = useState(() => window.innerWidth >= 768);
+
+    React.useEffect(() => {
+      const checkMobile = () => {
+        const mobile = window.innerWidth < 768;
+        const wasMobile = isMobile;
+        setIsMobile(mobile);
+
+        if (!mobile && wasMobile) {
+          setIsOpen(true);
+        } else if (mobile) {
+          setIsOpen(false);
+        }
+      };
+
+      checkMobile();
+      window.addEventListener("resize", checkMobile);
+      return () => window.removeEventListener("resize", checkMobile);
+    }, [isMobile]);
+
+    return (
+      <div className="flex flex-col h-screen">
+        {/* Navbar at the top */}
+        <Navbar1
+          logo={
+            <Typography variant="h5" color="primary">
+              Logo
+            </Typography>
+          }
+          leftElements={[
+            <Typography key="shop" color="primary" href="#">
+              Shop
+            </Typography>,
+            <Typography key="about" color="primary" href="#">
+              About
+            </Typography>,
+          ]}
+          rightElements={[
+            <Typography key="contact" color="primary" href="#">
+              Contact
+            </Typography>,
+          ]}
+          alwaysRightElements={[
+            <IconButton key="user" label="Account">
+              <UserCircle
+                size={28}
+                strokeWidth={1.4}
+                className="text-primary"
+              />
+            </IconButton>,
+            <Badge key="cart" count={3} absolute position="top-right">
+              <IconButton label="Cart">
+                <ShoppingCart
+                  size={26}
+                  strokeWidth={1.4}
+                  className="text-primary"
+                />
+              </IconButton>
+            </Badge>,
+          ]}
+        />
+
+        {/* Main content area with sidebar */}
+        <div className="flex flex-1 min-h-0 overflow-hidden items-stretch relative">
+          <Sidebar
+            width="md"
+            border="right"
+            padding="md"
+            overlay={isMobile}
+            isOpen={isOpen}
+            onOpenChange={setIsOpen}
+          >
+            <div className="mb-4">
+              <Typography variant="h6">Sidebar Navigation</Typography>
+            </div>
+            <div className="mb-2">
+              <Typography variant="p">
+                This sidebar is used alongside the navbar at the top.
+              </Typography>
+            </div>
+            <div className="mt-4 space-y-2">
+              <button
+                onClick={() => {}}
+                className="flex items-center gap-2 w-full text-left py-1.5 px-2 rounded transition-colors hover:bg-muted/10 text-foreground"
+              >
+                <Plus className="w-4 h-4" />
+                New Item
+              </button>
+              <button
+                onClick={() => {}}
+                className="flex items-center gap-2 w-full text-left py-1.5 px-2 rounded transition-colors hover:bg-muted/10 text-foreground"
+              >
+                <Library className="w-4 h-4" />
+                Library
+              </button>
+            </div>
+          </Sidebar>
+
+          {/* Toggle button */}
+          <div className="flex items-start p-4">
+            <IconButton onClick={() => setIsOpen((prev) => !prev)}>
+              <PanelLeft className="w-6 h-6" />
+            </IconButton>
+          </div>
+
+          {/* Main content */}
+          <div className="flex-1 min-h-0 flex flex-col w-full relative">
+            <div className="flex-1 min-h-0 overflow-y-auto w-full p-8">
+              <div className="mb-4">
+                <Typography variant="h3">Main Content Area</Typography>
+              </div>
+              <Typography variant="p" className="mb-2">
+                This story demonstrates the sidebar and navbar working together
+                with responsive behavior.
+              </Typography>
+              <Typography variant="p" className="mb-2">
+                On desktop (≥768px): Sidebar is in normal flow and always
+                visible. Toggle button opens/closes it.
+              </Typography>
+              <Typography variant="p" className="mb-2">
+                On mobile (&lt;768px): Sidebar uses overlay mode and can be
+                toggled with the button.
+              </Typography>
+              <Typography variant="p">
+                Current mode:{" "}
+                {isMobile ? "Mobile (Overlay)" : "Desktop (Normal)"}
+              </Typography>
+            </div>
+          </div>
         </div>
       </div>
     );

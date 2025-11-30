@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import { Search, Mail } from "lucide-react";
 import { TextInput } from "./text-input";
+import { Button } from "../button/button";
 
 const meta: Meta<typeof TextInput> = {
   title: "Components/TextInput",
@@ -83,4 +85,24 @@ export const Sizes: Story = {
       <TextInput label="Large" placeholder="Large input" inputSize="lg" />
     </div>
   ),
+};
+
+export const WithButton: Story = {
+  render: () => {
+    const [value, setValue] = useState("");
+    return (
+      <div className="flex gap-2 items-end">
+        <div className="flex-1">
+          <TextInput
+            label="Search"
+            placeholder="Enter search term..."
+            value={value}
+            onChange={setValue}
+            startIcon={<Search className="w-4 h-4" />}
+          />
+        </div>
+        <Button variant="primary">Search</Button>
+      </div>
+    );
+  },
 };

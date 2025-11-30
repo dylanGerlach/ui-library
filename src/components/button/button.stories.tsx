@@ -21,7 +21,8 @@ const meta: Meta<typeof Button> = {
     rounded: {
       control: "select",
       options: ["none", "sm", "md", "lg", "full"],
-      description: "Border radius of the button (rounded corners). 'full' creates a pill-shaped button.",
+      description:
+        "Border radius of the button (rounded corners). 'full' creates a pill-shaped button.",
       defaultValue: "md",
     },
     disabled: {
@@ -35,6 +36,10 @@ const meta: Meta<typeof Button> = {
     fullWidth: {
       control: "boolean",
       description: "Make the button span full container width",
+    },
+    pop: {
+      control: "boolean",
+      description: "Add CTA pop effect (enhanced shadow and hover scale)",
     },
     iconPosition: {
       control: "select",
@@ -103,24 +108,86 @@ export const BorderRadius: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="flex gap-4 items-center">
-        <Button variant="primary" rounded="none">None</Button>
-        <Button variant="primary" rounded="sm">Small</Button>
-        <Button variant="primary" rounded="md">Medium</Button>
-        <Button variant="primary" rounded="lg">Large</Button>
-        <Button variant="primary" rounded="full">Pill (Full)</Button>
+        <Button variant="primary" rounded="none">
+          None
+        </Button>
+        <Button variant="primary" rounded="sm">
+          Small
+        </Button>
+        <Button variant="primary" rounded="md">
+          Medium
+        </Button>
+        <Button variant="primary" rounded="lg">
+          Large
+        </Button>
+        <Button variant="primary" rounded="full">
+          Pill (Full)
+        </Button>
       </div>
       <div className="flex gap-4 items-center">
-        <Button variant="secondary" rounded="none">None</Button>
-        <Button variant="secondary" rounded="sm">Small</Button>
-        <Button variant="secondary" rounded="md">Medium</Button>
-        <Button variant="secondary" rounded="lg">Large</Button>
-        <Button variant="secondary" rounded="full">Pill (Full)</Button>
+        <Button variant="secondary" rounded="none">
+          None
+        </Button>
+        <Button variant="secondary" rounded="sm">
+          Small
+        </Button>
+        <Button variant="secondary" rounded="md">
+          Medium
+        </Button>
+        <Button variant="secondary" rounded="lg">
+          Large
+        </Button>
+        <Button variant="secondary" rounded="full">
+          Pill (Full)
+        </Button>
       </div>
     </div>
   ),
 };
 
 // Enhanced story showcasing all variants
+export const PopEffect: Story = {
+  args: {
+    children: "CTA Button with Pop",
+    variant: "primary",
+    pop: true,
+  },
+};
+
+export const PopComparison: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <p className="text-sm text-muted mb-2">Regular Button</p>
+        <Button variant="primary">Regular Button</Button>
+      </div>
+      <div>
+        <p className="text-sm text-muted mb-2">Button with Pop Effect</p>
+        <Button variant="primary" pop>
+          CTA Button with Pop
+        </Button>
+      </div>
+      <div>
+        <p className="text-sm text-muted mb-2">All Variants with Pop</p>
+        <div className="flex gap-4">
+          <Button variant="primary" pop>
+            Primary Pop
+          </Button>
+          <Button variant="secondary" pop>
+            Secondary Pop
+          </Button>
+          <Button variant="accent" pop>
+            Accent Pop
+          </Button>
+          <Button variant="destructive" pop>
+            Destructive Pop
+          </Button>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
 export const AllVariants: Story = {
   render: () => (
     <div className="space-y-4">
@@ -136,9 +203,15 @@ export const AllVariants: Story = {
         <Button size="lg">Large</Button>
       </div>
       <div className="flex gap-4">
-        <Button variant="primary" rounded="none">None</Button>
-        <Button variant="primary" rounded="md">Medium</Button>
-        <Button variant="primary" rounded="full">Pill</Button>
+        <Button variant="primary" rounded="none">
+          None
+        </Button>
+        <Button variant="primary" rounded="md">
+          Medium
+        </Button>
+        <Button variant="primary" rounded="full">
+          Pill
+        </Button>
       </div>
     </div>
   ),
