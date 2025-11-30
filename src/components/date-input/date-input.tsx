@@ -10,7 +10,7 @@ export type DatePickerMode = "single" | "range";
 
 /**
  * Props for the DateInput component.
- * 
+ *
  * @interface DateInputProps
  * @extends Omit<TextInputProps, "onChange" | "value">
  */
@@ -64,11 +64,11 @@ DateInputText.displayName = "DateInputText";
 
 /**
  * A date input component with a calendar picker interface.
- * 
+ *
  * Supports single date selection or date ranges. Formats dates in ISO format
  * for backend compatibility while displaying in a human-friendly format.
  * Uses theme colors for styling, so ensure ThemeProvider is set up in your app.
- * 
+ *
  * @example
  * ```tsx
  * <DateInput
@@ -78,7 +78,7 @@ DateInputText.displayName = "DateInputText";
  *   preventFuture
  * />
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // Date range
@@ -91,7 +91,7 @@ DateInputText.displayName = "DateInputText";
  *   }}
  * />
  * ```
- * 
+ *
  * @param props - DateInput props
  * @returns A date picker component
  */

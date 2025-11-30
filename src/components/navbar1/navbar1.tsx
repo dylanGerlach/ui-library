@@ -93,7 +93,9 @@ export function Navbar1({
 
           {/* Always visible right elements */}
           {alwaysRightElements.map((element, index) => (
-            <React.Fragment key={`always-${index}`}>{element}</React.Fragment>
+            <React.Fragment key={`always-${index}`}>
+              {element}
+            </React.Fragment>
           ))}
 
           {/* Mobile hamburger menu button */}

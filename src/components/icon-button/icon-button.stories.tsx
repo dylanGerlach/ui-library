@@ -11,6 +11,11 @@ const meta: Meta<typeof IconButton> = {
     label: { control: "text" },
     disabled: { control: "boolean" },
     active: { control: "boolean" },
+    variant: {
+      control: "select",
+      options: ["card", "transparent"],
+      description: "Background variant",
+    },
   },
 };
 
@@ -67,4 +72,21 @@ export const Interactive: Story = {
       </IconButton>
     );
   },
+};
+
+export const Variants: Story = {
+  render: () => (
+    <div className="flex gap-4 items-center">
+      <div className="p-4 bg-card rounded">
+        <IconButton variant="card" label="Card background">
+          <Heart size={18} />
+        </IconButton>
+      </div>
+      <div className="p-4 bg-background rounded">
+        <IconButton variant="transparent" label="Transparent background">
+          <Heart size={18} />
+        </IconButton>
+      </div>
+    </div>
+  ),
 };

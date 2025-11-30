@@ -617,8 +617,8 @@ export const WithNavbar: Story = {
               </div>
               <div className="mb-2">
                 <Typography variant="p">
-                  This story demonstrates the sidebar and navbar working together
-                  with responsive behavior.
+                  This story demonstrates the sidebar and navbar working
+                  together with responsive behavior.
                 </Typography>
               </div>
               <div className="mb-2">

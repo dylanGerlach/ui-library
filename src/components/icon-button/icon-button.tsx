@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 /**
  * Props for the IconButton component.
- * 
+ *
  * @interface IconButtonProps
  */
 export interface IconButtonProps {
@@ -15,16 +15,18 @@ export interface IconButtonProps {
   active?: boolean;
   /** Whether the button is disabled */
   disabled?: boolean;
+  /** Background variant - 'transparent' uses transparent background (default), 'card' uses card background */
+  variant?: "card" | "transparent";
   /** Callback fired when the button is clicked */
   onClick?: () => void;
 }
 
 /**
  * A button component designed for displaying icons.
- * 
+ *
  * Shows a border highlight when active. Uses theme colors for styling,
  * so ensure ThemeProvider is set up in your app.
- * 
+ *
  * @example
  * ```tsx
  * <IconButton
@@ -35,7 +37,7 @@ export interface IconButtonProps {
  *   <SettingsIcon />
  * </IconButton>
  * ```
- * 
+ *
  * @param props - IconButton props
  * @param ref - Forwarded ref to the underlying button element
  * @returns A styled icon button
@@ -47,10 +49,14 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       label,
       active = false,
       disabled = false,
+      variant = "transparent",
       onClick,
     },
     ref
   ) => {
+    const backgroundClass =
+      variant === "transparent" ? "bg-transparent" : "bg-card";
+
     return (
       <button
         ref={ref}
@@ -62,7 +68,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         title={label}
         className={clsx(
           "flex items-center justify-center rounded-md p-2 transition-colors border",
-          "bg-card text-foreground hover:bg-muted/10",
+          backgroundClass,
+          "text-foreground hover:bg-muted/10",
           disabled && "opacity-50 cursor-not-allowed",
           active ? "border-2" : "border"
         )}
