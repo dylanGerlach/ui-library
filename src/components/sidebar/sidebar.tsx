@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import { useTheme } from "../../theme/ThemeProvider";
 
 /**
  * Props for the Sidebar component.
@@ -73,6 +74,8 @@ export function Sidebar({
   isOpen,
   onOpenChange,
 }: SidebarProps) {
+  const theme = useTheme();
+  
   // Width presets
   const widthClasses: Record<"sm" | "md" | "lg" | "xl", string> = {
     sm: "w-48",
@@ -87,10 +90,10 @@ export function Sidebar({
       ? widthClasses[width as keyof typeof widthClasses]
       : width;
 
-  // Border classes
+  // Border classes (we'll use inline styles for border color)
   const borderClasses: Record<"left" | "right" | "none", string> = {
-    left: "border-l border-[var(--color-border)]",
-    right: "border-r border-[var(--color-border)]",
+    left: "border-l",
+    right: "border-r",
     none: "",
   };
 
@@ -124,6 +127,9 @@ export function Sidebar({
         // Hide content when collapsed in normal flow to prevent text resizing
         !overlay && !isOpen && "overflow-hidden"
       )}
+      style={{
+        borderColor: (overlay || isOpen) && border !== "none" ? theme.palette.border : undefined,
+      }}
       onClick={(e) => e.stopPropagation()}
     >
       <div

@@ -216,3 +216,48 @@ export const AllVariants: Story = {
     </div>
   ),
 };
+
+export const ResponsiveSize: Story = {
+  render: () => (
+    <div className="space-y-6">
+      <div>
+        <p className="text-sm text-muted mb-2">
+          Responsive button - resizes at different breakpoints
+        </p>
+        <Button
+          variant="primary"
+          size={{
+            base: "sm",
+            md: "md",
+            lg: "lg",
+          }}
+        >
+          Responsive Button (sm → md → lg)
+        </Button>
+      </div>
+      <div>
+        <p className="text-sm text-muted mb-2">
+          Another example - starts large, gets smaller on mobile
+        </p>
+        <Button
+          variant="secondary"
+          size={{
+            base: "lg",
+            md: "md",
+            xl: "sm",
+          }}
+        >
+          Responsive Button (lg → md → sm)
+        </Button>
+      </div>
+      <div>
+        <p className="text-sm text-muted mb-2">
+          Simple string size (backward compatible)
+        </p>
+        <Button variant="accent" size="md">
+          Standard Size Button
+        </Button>
+      </div>
+    </div>
+  ),
+};

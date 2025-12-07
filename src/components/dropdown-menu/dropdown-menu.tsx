@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import * as Popover from "@radix-ui/react-popover";
+import { useTheme } from "../../theme/ThemeProvider";
 
 /**
  * Configuration for a single dropdown menu item.
@@ -51,10 +52,13 @@ export interface DropdownMenuProps {
 function SubmenuItem({
   item,
   getItemStyles,
+  getItemStyle,
 }: {
   item: DropdownMenuItem;
   getItemStyles: (variant?: "default" | "danger" | "active") => string;
+  getItemStyle: (variant?: "default" | "danger" | "active") => React.CSSProperties;
 }) {
+  const theme = useTheme();
   const [submenuOpen, setSubmenuOpen] = useState(false);
 
   return (
@@ -65,7 +69,8 @@ function SubmenuItem({
             item.disabled
               ? "disabled:opacity-50 disabled:cursor-not-allowed"
               : ""
-          } focus:outline-none focus:ring-0 justify-between`}
+          } focus:outline-none focus:ring-0 justify-between hover:bg-muted/10`}
+          style={getItemStyle(item.variant)}
           disabled={item.disabled}
           onMouseEnter={() => !item.disabled && setSubmenuOpen(true)}
           onMouseLeave={() => setSubmenuOpen(false)}
@@ -83,22 +88,26 @@ function SubmenuItem({
         align="start"
         sideOffset={-6}
         alignOffset={0}
-        className="z-[10000] py-1 px-1 border border-[var(--color-border)] rounded-md shadow-xl min-w-[160px]"
+        className="z-[10000] py-1 px-1 border rounded-md shadow-xl min-w-[160px]"
         onMouseEnter={() => !item.disabled && setSubmenuOpen(true)}
         onMouseLeave={() => setSubmenuOpen(false)}
-        style={{ backgroundColor: "var(--color-card)" }}
+        style={{
+          backgroundColor: theme.palette.background.paper,
+          borderColor: theme.palette.border,
+        }}
       >
         {item.children?.map((child, childIndex) => (
           <React.Fragment key={child.id}>
             {child.children ? (
-              <SubmenuItem item={child} getItemStyles={getItemStyles} />
+              <SubmenuItem item={child} getItemStyles={getItemStyles} getItemStyle={getItemStyle} />
             ) : (
               <button
                 className={`${getItemStyles(child.variant)} ${
                   child.disabled
                     ? "disabled:opacity-50 disabled:cursor-not-allowed"
                     : ""
-                } focus:outline-none focus:ring-0`}
+                } focus:outline-none focus:ring-0 hover:bg-muted/10`}
+                style={getItemStyle(child.variant)}
                 onClick={child.onClick}
                 disabled={child.disabled}
               >
@@ -108,7 +117,7 @@ function SubmenuItem({
             )}
 
             {child.separator && childIndex < item.children!.length - 1 && (
-              <hr className="my-1 border-[var(--color-border)]" />
+              <hr className="my-1" style={{ borderColor: theme.palette.border }} />
             )}
           </React.Fragment>
         ))}
@@ -171,6 +180,8 @@ export function DropdownMenu({
   align = "start",
   sideOffset = 5,
 }: DropdownMenuProps) {
+  const theme = useTheme();
+  
   const getItemStyles = (
     variant: "default" | "danger" | "active" = "default"
   ) => {
@@ -178,14 +189,31 @@ export function DropdownMenu({
       "w-full px-3 py-2 text-left text-sm flex items-center gap-2 rounded transition-colors";
 
     if (variant === "danger") {
-      return `${baseStyles} text-[var(--color-destructive)] hover:bg-muted/10`;
+      return baseStyles;
     }
 
     if (variant === "active") {
-      return `${baseStyles} bg-[var(--color-primary)] text-[var(--color-primary-foreground)]`;
+      return baseStyles;
     }
 
-    return `${baseStyles} text-[var(--color-foreground)] hover:bg-muted/10`;
+    return baseStyles;
+  };
+
+  const getItemStyle = (
+    variant: "default" | "danger" | "active" = "default"
+  ) => {
+    if (variant === "danger") {
+      return { color: theme.palette.error.main };
+    }
+
+    if (variant === "active") {
+      return {
+        backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
+      };
+    }
+
+    return { color: theme.palette.text.primary };
   };
 
   return (
@@ -196,20 +224,24 @@ export function DropdownMenu({
         side={side}
         align={align}
         sideOffset={sideOffset}
-        className="z-[9999] py-1 px-1 border border-[var(--color-border)] rounded-md shadow-xl min-w-[160px]"
-        style={{ backgroundColor: "var(--color-card)" }}
+        className="z-[9999] py-1 px-1 border rounded-md shadow-xl min-w-[160px]"
+        style={{
+          backgroundColor: theme.palette.background.paper,
+          borderColor: theme.palette.border,
+        }}
       >
         {items.map((item, index) => (
           <React.Fragment key={item.id}>
             {item.children ? (
-              <SubmenuItem item={item} getItemStyles={getItemStyles} />
+              <SubmenuItem item={item} getItemStyles={getItemStyles} getItemStyle={getItemStyle} />
             ) : (
               <button
                 className={`${getItemStyles(item.variant)} ${
                   item.disabled
                     ? "disabled:opacity-50 disabled:cursor-not-allowed"
                     : ""
-                } focus:outline-none focus:ring-0`}
+                } focus:outline-none focus:ring-0 hover:bg-muted/10`}
+                style={getItemStyle(item.variant)}
                 onClick={item.onClick}
                 disabled={item.disabled}
               >
@@ -219,7 +251,7 @@ export function DropdownMenu({
             )}
 
             {item.separator && index < items.length - 1 && (
-              <hr className="my-1 border-[var(--color-border)]" />
+              <hr className="my-1" style={{ borderColor: theme.palette.border }} />
             )}
           </React.Fragment>
         ))}

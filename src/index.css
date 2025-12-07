@@ -1,33 +1,14 @@
 @import "tailwindcss";
 
-/* Define CSS variables with default values from createTheme().
- * These serve as fallbacks for SSR/hydration and when ThemeProvider isn't used.
- * ThemeProvider will override these at runtime.
+/* Define theme colors for Tailwind utility class generation.
  * 
- * These values MUST match the defaults in src/theme/createTheme.ts
- * to ensure consistency - the theme system is the source of truth.
- */
-:root {
-  --color-primary: rgb(37 99 235);
-  --color-primary-foreground: rgb(255 255 255);
-  --color-secondary: rgb(107 114 128);
-  --color-secondary-foreground: rgb(255 255 255);
-  --color-accent: rgb(249 115 22);
-  --color-accent-foreground: rgb(255 255 255);
-  --color-success: rgb(22 163 74);
-  --color-warning: rgb(250 204 21);
-  --color-destructive: rgb(220 38 38);
-  --color-info: rgb(14 165 233);
-  --color-background: rgb(255 255 255);
-  --color-card: rgb(243 244 246);
-  --color-card-foreground: rgb(17 24 39);
-  --color-foreground: rgb(17 24 39);
-  --color-muted: rgb(107 114 128);
-  --color-border: rgb(229 231 235);
-}
-
-/* Tell Tailwind about these colors for utility class generation.
- * Uses the same default values - ThemeProvider will override the CSS variables.
+ * These serve as:
+ * 1. Build-time defaults for Tailwind to generate utility classes (bg-card, text-foreground, etc.)
+ * 2. Runtime fallbacks if ThemeProvider hasn't loaded yet (prevent FOUC)
+ * 3. Safety fallbacks in production if ThemeProvider fails
+ * 
+ * ThemeProvider will override these CSS variables at runtime with the actual theme values.
+ * The values here MUST match the defaults in src/theme/createTheme.ts for consistency.
  */
 @theme {
   --color-primary: rgb(37 99 235);

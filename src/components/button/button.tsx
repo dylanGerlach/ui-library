@@ -3,6 +3,22 @@ import clsx from "clsx";
 import { ThreeDotLoader } from "../three-dot-loader/three-dot-loader";
 
 /**
+ * Size configuration for the Button component.
+ * Can be a simple size string or an object with responsive breakpoints.
+ */
+type ButtonSize =
+  | "sm"
+  | "md"
+  | "lg"
+  | {
+      base?: "sm" | "md" | "lg";
+      sm?: "sm" | "md" | "lg";
+      md?: "sm" | "md" | "lg";
+      lg?: "sm" | "md" | "lg";
+      xl?: "sm" | "md" | "lg";
+    };
+
+/**
  * Props for the Button component.
  *
  * @interface ButtonProps
@@ -13,8 +29,8 @@ type ButtonProps = {
   children: React.ReactNode;
   /** Visual style variant of the button */
   variant?: "primary" | "secondary" | "accent" | "destructive";
-  /** Size of the button */
-  size?: "sm" | "md" | "lg";
+  /** Size of the button. Can be a simple size string or an object with responsive breakpoints. */
+  size?: ButtonSize;
   /** Border radius of the button (rounded corners) */
   rounded?: "none" | "sm" | "md" | "lg" | "full";
   /** Whether the button is disabled */
@@ -72,9 +88,73 @@ type ButtonProps = {
  * <Button variant="primary" pop>Get Started</Button>
  * ```
  *
+ * @example
+ * ```tsx
+ * // Responsive size - small on mobile, medium on tablet, large on desktop
+ * <Button
+ *   variant="primary"
+ *   size={{
+ *     base: "sm",
+ *     md: "md",
+ *     lg: "lg"
+ *   }}
+ * >
+ *   Responsive Button
+ * </Button>
+ * ```
+ *
  * @param props - Button props including all standard HTML button attributes
  * @returns A styled button element
  */
+
+/**
+ * Size class mappings for button padding and text size.
+ */
+const SIZE_CLASSES = {
+  sm: { padding: "px-2 py-1", text: "text-sm" },
+  md: { padding: "px-4 py-2", text: "text-base" },
+  lg: { padding: "px-6 py-3", text: "text-lg" },
+} as const;
+
+/**
+ * Generates responsive size classes for the button.
+ * @param size - Size configuration (string or responsive object)
+ * @returns Tailwind classes for button sizing
+ */
+function getSizeClasses(size: ButtonSize): string {
+  // Simple string size - return classes directly
+  if (typeof size === "string") {
+    const classes = SIZE_CLASSES[size] || SIZE_CLASSES.md;
+    return `${classes.padding} ${classes.text}`;
+  }
+
+  // Responsive object - build classes for each breakpoint
+  const classes: string[] = [];
+  const baseSize = size.base || size.md || "md";
+  const baseClasses = SIZE_CLASSES[baseSize];
+  classes.push(baseClasses.padding, baseClasses.text);
+
+  // Add responsive breakpoint classes
+  if (size.sm) {
+    const smClasses = SIZE_CLASSES[size.sm];
+    classes.push(`sm:${smClasses.padding}`, `sm:${smClasses.text}`);
+  }
+  if (size.md) {
+    const mdClasses = SIZE_CLASSES[size.md];
+    classes.push(`md:${mdClasses.padding}`, `md:${mdClasses.text}`);
+  }
+  if (size.lg) {
+    const lgClasses = SIZE_CLASSES[size.lg];
+    classes.push(`lg:${lgClasses.padding}`, `lg:${lgClasses.text}`);
+  }
+  if (size.xl) {
+    const xlClasses = SIZE_CLASSES[size.xl];
+    classes.push(`xl:${xlClasses.padding}`, `xl:${xlClasses.text}`);
+  }
+
+  return classes.join(" ");
+}
+
 export function Button({
   children,
   variant = "primary",
@@ -90,12 +170,6 @@ export function Button({
 }: ButtonProps) {
   const base =
     "inline-flex items-center justify-center font-medium border-0 focus:outline-none transition-all disabled:opacity-50";
-
-  const sizes: Record<string, string> = {
-    sm: "px-2 py-1 text-sm",
-    md: "px-4 py-2 text-base",
-    lg: "px-6 py-3 text-lg",
-  };
 
   const roundedStyles: Record<string, string> = {
     none: "rounded-none",
@@ -121,7 +195,7 @@ export function Button({
       disabled={disabled || isLoading}
       className={clsx(
         base,
-        sizes[size],
+        getSizeClasses(size),
         roundedStyles[rounded],
         variants[variant],
         fullWidth && "w-full",

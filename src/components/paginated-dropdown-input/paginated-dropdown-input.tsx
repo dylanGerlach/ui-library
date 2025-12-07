@@ -3,6 +3,7 @@ import type { ReactElement } from "react";
 import type { GroupBase } from "react-select";
 import Select from "react-select";
 import clsx from "clsx";
+import { useTheme } from "../../theme/ThemeProvider";
 import type { MessageColor } from "../../theme/types";
 
 import { useComponents } from "./components/useComponents";
@@ -100,6 +101,7 @@ export const PaginatedDropdownInput = forwardRef(
     }: PaginatedDropdownInputProps<OptionType, Group, Additional, IsMulti>,
     ref: React.ForwardedRef<any>
   ): ReactElement => {
+    const theme = useTheme();
     const [isFocused, setIsFocused] = useState(false);
 
     const asyncPaginateProps: UseAsyncPaginateResult<OptionType, Group> =
@@ -145,32 +147,32 @@ export const PaginatedDropdownInput = forwardRef(
             styles={{
               indicatorsContainer: (base) => ({
                 ...base,
-                color: "var(--color-muted)",
+                color: theme.palette.text.secondary,
               }),
               control: (base, state) => ({
                 ...base,
-                backgroundColor: "var(--color-card)",
+                backgroundColor: theme.palette.background.paper,
                 borderRadius: "0.375rem",
                 borderWidth: "2px",
                 borderStyle: "solid",
                 borderColor: error
-                  ? "var(--color-destructive)"
-                  : "var(--color-border)",
+                  ? theme.palette.error.main
+                  : theme.palette.border,
                 boxShadow: error
-                  ? "0 0 0 2px var(--color-destructive)"
+                  ? `0 0 0 2px ${theme.palette.error.main}`
                   : state.isFocused
-                  ? "0 0 0 2px var(--color-primary)"
+                  ? `0 0 0 2px ${theme.palette.primary.main}`
                   : "none",
                 "&:hover": {
                   borderColor: error
-                    ? "var(--color-destructive)"
-                    : "var(--color-border)",
+                    ? theme.palette.error.main
+                    : theme.palette.border,
                 },
               }),
               menu: (base) => ({
                 ...base,
-                backgroundColor: "var(--color-card)",
-                border: "2px solid var(--color-border)",
+                backgroundColor: theme.palette.background.paper,
+                border: `2px solid ${theme.palette.border}`,
                 borderRadius: "0.375rem",
                 marginTop: "0.25rem",
                 boxShadow:
@@ -179,20 +181,20 @@ export const PaginatedDropdownInput = forwardRef(
               option: (base, state) => ({
                 ...base,
                 backgroundColor: state.isSelected
-                  ? "var(--color-card)"
+                  ? theme.palette.background.paper
                   : state.isFocused
-                  ? "var(--color-border)"
-                  : "var(--color-card)",
-                color: "var(--color-foreground)",
+                  ? theme.palette.border
+                  : theme.palette.background.paper,
+                color: theme.palette.text.primary,
                 cursor: "pointer",
               }),
               singleValue: (base) => ({
                 ...base,
-                color: "var(--color-foreground)",
+                color: theme.palette.text.primary,
               }),
               placeholder: (base) => ({
                 ...base,
-                color: "var(--color-muted)",
+                color: theme.palette.text.secondary,
               }),
             }}
           />

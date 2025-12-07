@@ -1,6 +1,7 @@
 import React, { useState, forwardRef, TextareaHTMLAttributes } from "react";
 import clsx from "clsx";
 import type { MessageColor } from "../../theme/types";
+import { useTheme } from "../../theme/ThemeProvider";
 
 /**
  * Props for the TextBoxInput component.
@@ -33,9 +34,9 @@ const sizeClasses: Record<
   NonNullable<TextBoxInputProps["inputSize"]>,
   { input: string }
 > = {
-  sm: { input: "px-2 py-1 text-sm" },
-  md: { input: "px-3 py-2 text-base" },
-  lg: { input: "px-4 py-3 text-lg" },
+  sm: { input: "px-2 py-1.5 text-sm" },
+  md: { input: "px-3 py-3 text-base" },
+  lg: { input: "px-4 py-4 text-lg" },
 };
 
 /**
@@ -77,6 +78,7 @@ export const TextBoxInput = forwardRef<HTMLTextAreaElement, TextBoxInputProps>(
     },
     ref
   ) => {
+    const theme = useTheme();
     const [isFocused, setIsFocused] = useState(false);
     const showMessage = error || helperText;
 
@@ -86,53 +88,84 @@ export const TextBoxInput = forwardRef<HTMLTextAreaElement, TextBoxInputProps>(
 
     return (
       <div className="space-y-1 w-full" style={{ opacity: disabled ? 0.6 : 1 }}>
-        {label && (
-          <label
-            htmlFor={id}
-            className="text-sm font-medium text-foreground block"
-          >
-            {label}
-            {!required && <span className="text-muted"> (optional)</span>}
-          </label>
-        )}
+        <div className="relative">
+          <div className="relative w-full">
+            {/* Fieldset creates border, legend creates notch for label */}
+            <fieldset
+              className="absolute inset-0 pointer-events-none rounded-md border m-0 p-0 overflow-hidden transition-colors"
+              style={{
+                borderColor: error
+                  ? theme.palette.error.main
+                  : isFocused
+                  ? theme.palette.primary.main
+                  : theme.palette.border,
+                borderWidth: error || isFocused ? "2px" : "1px",
+              }}
+            >
+              {label && (
+                <legend className="ml-2 px-1 pb-1">
+                  <span
+                    className={clsx(
+                      "whitespace-pre",
+                      inputSize === "sm"
+                        ? "text-xs"
+                        : inputSize === "md"
+                        ? "text-sm"
+                        : "text-base"
+                    )}
+                    style={{
+                      color: error
+                        ? theme.palette.error.main
+                        : isFocused
+                        ? theme.palette.primary.main
+                        : theme.palette.border,
+                    }}
+                  >
+                    {label}
+                  </span>
+                </legend>
+              )}
+            </fieldset>
 
-        <textarea
-          id={id}
-          ref={ref}
-          rows={rows}
-          onChange={(e) => onChange?.(e.target.value)}
-          onFocus={(e) => {
-            setIsFocused(true);
-            props.onFocus?.(e);
-          }}
-          onBlur={(e) => {
-            setIsFocused(false);
-            props.onBlur?.(e);
-          }}
-          disabled={disabled}
-          className={clsx(
-            "w-full rounded-md border bg-card text-foreground placeholder-muted resize-y",
-            "focus:outline-none transition-all",
-            disabled && "cursor-not-allowed opacity-70",
-            sizeClasses[inputSize].input
-          )}
-          style={{
-            borderColor: error
-              ? "var(--color-destructive)"
-              : "var(--color-border)",
-            boxShadow: error
-              ? "0 0 0 2px var(--color-destructive)"
-              : isFocused
-              ? "0 0 0 2px var(--color-primary)"
-              : "none",
-          }}
-          {...props}
-        />
+            <textarea
+              id={id}
+              ref={ref}
+              rows={rows}
+              onChange={(e) => onChange?.(e.target.value)}
+              onFocus={(e) => {
+                setIsFocused(true);
+                props.onFocus?.(e);
+              }}
+              onBlur={(e) => {
+                setIsFocused(false);
+                props.onBlur?.(e);
+              }}
+              disabled={disabled}
+              className={clsx(
+                "w-full rounded-md bg-transparent text-foreground placeholder-muted resize-y focus:outline-none transition-all",
+                disabled && "cursor-not-allowed opacity-70",
+                sizeClasses[inputSize].input,
+                inputSize === "sm"
+                  ? "pt-4 pb-1.5"
+                  : inputSize === "md"
+                  ? "pt-5 pb-2"
+                  : "pt-6 pb-3"
+              )}
+              style={{
+                border: "none",
+                outline: "none",
+                boxShadow: "none",
+                margin: 0,
+              }}
+              {...props}
+            />
+          </div>
+        </div>
 
-        {(showMessage || reserveMessageSpace) && (
+        {showMessage && (
           <p
             className={clsx(
-              "text-sm mt-1 min-h-[1.25rem]",
+              "text-sm mt-1",
               error
                 ? "text-destructive"
                 : messageColor
@@ -140,7 +173,7 @@ export const TextBoxInput = forwardRef<HTMLTextAreaElement, TextBoxInputProps>(
                 : "text-foreground"
             )}
           >
-            {showMessage ? error || helperText : ""}
+            {error || helperText}
           </p>
         )}
       </div>

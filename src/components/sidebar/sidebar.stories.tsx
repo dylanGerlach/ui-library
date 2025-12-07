@@ -8,6 +8,7 @@ import { DropdownMenu } from "../dropdown-menu/dropdown-menu";
 import { Navbar1 } from "../navbar1/navbar1";
 import { IconButton } from "../icon-button/icon-button";
 import { Badge } from "../badge/badge";
+import { useTheme } from "../../theme/ThemeProvider";
 import { UserCircle, ShoppingCart } from "lucide-react";
 
 const meta: Meta<typeof Sidebar> = {
@@ -158,6 +159,7 @@ export const BorderPositions: Story = {
 
 export const ChatSidebarExample: Story = {
   render: () => {
+    const theme = useTheme();
     const [selectedId, setSelectedId] = useState<number | null>(1);
     const [menuOpen, setMenuOpen] = useState<number | null>(null);
 
@@ -206,11 +208,11 @@ export const ChatSidebarExample: Story = {
                 }`}
                 style={{
                   backgroundColor: isSelected
-                    ? "var(--color-primary)"
+                    ? theme.palette.primary.main
                     : "transparent",
                   color: isSelected
-                    ? "var(--color-primary-foreground, white)"
-                    : "var(--color-foreground)",
+                    ? theme.palette.primary.contrastText
+                    : theme.palette.text.primary,
                 }}
               >
                 <button
@@ -230,8 +232,8 @@ export const ChatSidebarExample: Story = {
                       }`}
                       style={{
                         color: isSelected
-                          ? "var(--color-primary-foreground, white)"
-                          : "var(--color-muted)",
+                          ? theme.palette.primary.contrastText
+                          : theme.palette.text.secondary,
                       }}
                       aria-label="Session actions"
                       onClick={(e) => e.stopPropagation()}
@@ -470,7 +472,7 @@ export const ResponsiveDesktopMobile: Story = {
           <button
             onClick={() => setIsOpen((prev) => !prev)}
             className="p-2 rounded transition-colors hover:bg-muted/10 border bg-card text-foreground"
-            style={{ borderColor: "var(--color-border)" }}
+            style={{ borderColor: theme.palette.border }}
             aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
           >
             <PanelLeft className="w-6 h-6" />

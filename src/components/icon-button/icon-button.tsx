@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import clsx from "clsx";
+import { useTheme } from "../../theme/ThemeProvider";
 
 /**
  * Props for the IconButton component.
@@ -54,6 +55,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     },
     ref
   ) => {
+    const theme = useTheme();
     const backgroundClass =
       variant === "transparent" ? "bg-transparent" : "bg-card";
 
@@ -73,7 +75,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
           disabled && "opacity-50 cursor-not-allowed",
           active ? "border-2" : "border"
         )}
-        style={{ borderColor: active ? "var(--color-primary)" : "transparent" }}
+        style={{ borderColor: active ? theme.palette.primary.main : "transparent" }}
       >
         {children}
       </button>

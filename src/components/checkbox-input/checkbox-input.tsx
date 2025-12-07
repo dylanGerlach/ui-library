@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import { useTheme } from "../../theme/ThemeProvider";
 import type { MessageColor } from "../../theme/types";
 
 /**
@@ -59,6 +60,7 @@ export function CheckboxInput({
   messageColor,
   reserveMessageSpace = true,
 }: CheckboxInputProps) {
+  const theme = useTheme();
   const showMessage = error || helperText;
 
   return (
@@ -70,7 +72,8 @@ export function CheckboxInput({
           onChange={(e) => onChange(e.target.checked)}
           disabled={disabled}
           required={required}
-          className="w-4 h-4 accent-[var(--color-primary)] cursor-pointer disabled:cursor-not-allowed"
+          className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
+          style={{ accentColor: theme.palette.primary.main }}
         />
         <label className="text-sm text-foreground">{label}</label>
       </div>

@@ -3,7 +3,7 @@ import React, {
   useContext,
   useMemo,
   useState,
-  useEffect,
+  useLayoutEffect,
 } from "react";
 import type { Theme, ThemeMode } from "./types";
 import { createTheme } from "./createTheme";
@@ -15,20 +15,6 @@ const ThemeModeContext = createContext<{
   setMode: (mode: ThemeMode) => void;
   toggleMode: () => void;
 } | null>(null);
-
-/**
- * Props for the ThemeProvider component.
- * 
- * @interface ThemeProviderProps
- */
-export interface ThemeProviderProps {
-  /** Theme object or theme options. If ThemeOptions, will be merged with defaults. */
-  theme?: Theme | ThemeOptions;
-  /** Initial theme mode (light or dark) */
-  defaultMode?: ThemeMode;
-  /** Child components that will have access to the theme */
-  children: React.ReactNode;
-}
 
 // Helper function to apply theme to CSS variables synchronously
 function applyThemeToCSS(themeValue: Theme, mode: ThemeMode) {
@@ -75,16 +61,30 @@ function applyThemeToCSS(themeValue: Theme, mode: ThemeMode) {
 }
 
 /**
+ * Props for the ThemeProvider component.
+ *
+ * @interface ThemeProviderProps
+ */
+export interface ThemeProviderProps {
+  /** Theme object or theme options. If ThemeOptions, will be merged with defaults. */
+  theme?: Theme | ThemeOptions;
+  /** Initial theme mode (light or dark) */
+  defaultMode?: ThemeMode;
+  /** Child components that will have access to the theme */
+  children: React.ReactNode;
+}
+
+/**
  * Theme provider component that supplies theme context to all child components.
- * 
+ *
  * **REQUIRED**: Wrap your app with ThemeProvider to enable theming. This component:
  * - Applies theme colors as CSS variables to the document root
  * - Manages light/dark mode switching
  * - Provides theme context via useTheme() and useThemeMode() hooks
- * 
+ *
  * Uses MUI-style theming - pass a theme created with createTheme() or ThemeOptions
  * to customize the palette.
- * 
+ *
  * @example
  * ```tsx
  * // Basic usage with default theme
@@ -92,7 +92,7 @@ function applyThemeToCSS(themeValue: Theme, mode: ThemeMode) {
  *   <App />
  * </ThemeProvider>
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // With custom theme
@@ -101,12 +101,12 @@ function applyThemeToCSS(themeValue: Theme, mode: ThemeMode) {
  *     primary: { main: "#1976d2", contrastText: "#fff" },
  *   },
  * });
- * 
+ *
  * <ThemeProvider theme={theme} defaultMode="dark">
  *   <App />
  * </ThemeProvider>
  * ```
- * 
+ *
  * @param props - ThemeProvider props
  * @returns A theme context provider
  */
@@ -154,13 +154,12 @@ export function ThemeProvider({
   }, [theme, mode]);
 
   // Apply theme immediately on mount (synchronously) to prevent FOUC
-  // This runs during render, before paint
   if (typeof document !== "undefined") {
     applyThemeToCSS(themeValue, mode);
   }
 
   // Also use useLayoutEffect to handle theme/mode changes
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     applyThemeToCSS(themeValue, mode);
   }, [themeValue, mode]);
 
@@ -179,10 +178,10 @@ export function ThemeProvider({
 
 /**
  * Hook to access the current theme object.
- * 
+ *
  * Returns the complete theme with palette and mode. If used outside
  * ThemeProvider, returns a default theme.
- * 
+ *
  * @example
  * ```tsx
  * function MyComponent() {
@@ -191,7 +190,7 @@ export function ThemeProvider({
  *   return <div style={{ color: primaryColor }}>Hello</div>;
  * }
  * ```
- * 
+ *
  * @returns The current theme object
  */
 export function useTheme(): Theme {
@@ -205,10 +204,10 @@ export function useTheme(): Theme {
 
 /**
  * Hook to access and control the theme mode (light/dark).
- * 
+ *
  * Provides the current mode and functions to change it. Must be used
  * within a ThemeProvider.
- * 
+ *
  * @example
  * ```tsx
  * function ThemeToggle() {
@@ -220,7 +219,7 @@ export function useTheme(): Theme {
  *   );
  * }
  * ```
- * 
+ *
  * @returns Object with mode, setMode, and toggleMode
  * @throws Error if used outside ThemeProvider
  */

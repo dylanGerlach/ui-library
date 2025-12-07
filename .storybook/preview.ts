@@ -9,6 +9,7 @@ const preview: Preview = {
   decorators: [withTheme],
   globals: {
     theme: "default",
+    colorMode: "light",
   },
   parameters: {
     controls: {
@@ -28,21 +29,15 @@ const preview: Preview = {
       modes: {
         light: {
           ...themes.light,
-          appBg: "var(--color-background)",
         },
         dark: {
           ...themes.dark,
-          appBg: "var(--color-background)",
         },
       },
     },
     backgrounds: {
       default: "background",
-      values: [
-        { name: "background", value: "var(--color-background)" },
-        { name: "card", value: "var(--color-card)" },
-        { name: "primary", value: "var(--color-primary)" },
-      ],
+      values: [],
     },
   },
   globalTypes: {
@@ -59,6 +54,19 @@ const preview: Preview = {
           { value: "sunset", title: "Sunset" },
           { value: "royal", title: "Royal" },
           { value: "minimal", title: "Minimal" },
+        ],
+        dynamicTitle: true,
+      },
+    },
+    colorMode: {
+      description: "Color mode",
+      defaultValue: "light",
+      toolbar: {
+        title: "Color Mode",
+        icon: "circlehollow",
+        items: [
+          { value: "light", title: "Light" },
+          { value: "dark", title: "Dark" },
         ],
         dynamicTitle: true,
       },

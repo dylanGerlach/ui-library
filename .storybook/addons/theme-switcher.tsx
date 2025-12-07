@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import React from "react";
+import { ThemeProvider, useTheme } from "../../src/theme/ThemeProvider";
 import { createTheme } from "../../src/theme/createTheme";
 import type { ThemeOptions } from "../../src/theme/types";
 
@@ -83,30 +84,7 @@ const themeOptions: Record<string, ThemeOptions> = {
         dark: "rgb(37 99 235)",
         contrastText: "rgb(255 255 255)",
       },
-      success: {
-        main: "rgb(34 197 94)",
-        light: "rgb(74 222 128)",
-        dark: "rgb(22 163 74)",
-        contrastText: "rgb(255 255 255)",
-      },
-      warning: {
-        main: "rgb(234 179 8)",
-        light: "rgb(250 204 21)",
-        dark: "rgb(202 138 4)",
-        contrastText: "rgb(0 0 0)",
-      },
-      error: {
-        main: "rgb(239 68 68)",
-        light: "rgb(248 113 113)",
-        dark: "rgb(220 38 38)",
-        contrastText: "rgb(255 255 255)",
-      },
-      info: {
-        main: "rgb(14 165 233)",
-        light: "rgb(56 189 248)",
-        dark: "rgb(2 132 199)",
-        contrastText: "rgb(255 255 255)",
-      },
+      // Use standard colors for semantic colors - they work well in both modes
       background: {
         default: "rgb(240 253 250)",
         paper: "rgb(204 251 241)",
@@ -141,30 +119,7 @@ const themeOptions: Record<string, ThemeOptions> = {
         dark: "rgb(77 124 15)",
         contrastText: "rgb(255 255 255)",
       },
-      success: {
-        main: "rgb(22 163 74)",
-        light: "rgb(74 222 128)",
-        dark: "rgb(21 128 61)",
-        contrastText: "rgb(255 255 255)",
-      },
-      warning: {
-        main: "rgb(234 179 8)",
-        light: "rgb(250 204 21)",
-        dark: "rgb(202 138 4)",
-        contrastText: "rgb(0 0 0)",
-      },
-      error: {
-        main: "rgb(220 38 38)",
-        light: "rgb(248 113 113)",
-        dark: "rgb(153 27 27)",
-        contrastText: "rgb(255 255 255)",
-      },
-      info: {
-        main: "rgb(14 165 233)",
-        light: "rgb(56 189 248)",
-        dark: "rgb(3 105 161)",
-        contrastText: "rgb(255 255 255)",
-      },
+      // Use standard colors for semantic colors - they work well in both modes
       background: {
         default: "rgb(247 254 231)",
         paper: "rgb(236 252 203)",
@@ -199,30 +154,7 @@ const themeOptions: Record<string, ThemeOptions> = {
         dark: "rgb(234 88 12)",
         contrastText: "rgb(255 255 255)",
       },
-      success: {
-        main: "rgb(34 197 94)",
-        light: "rgb(74 222 128)",
-        dark: "rgb(22 163 74)",
-        contrastText: "rgb(255 255 255)",
-      },
-      warning: {
-        main: "rgb(250 204 21)",
-        light: "rgb(253 224 71)",
-        dark: "rgb(202 138 4)",
-        contrastText: "rgb(0 0 0)",
-      },
-      error: {
-        main: "rgb(239 68 68)",
-        light: "rgb(248 113 113)",
-        dark: "rgb(220 38 38)",
-        contrastText: "rgb(255 255 255)",
-      },
-      info: {
-        main: "rgb(14 165 233)",
-        light: "rgb(56 189 248)",
-        dark: "rgb(3 105 161)",
-        contrastText: "rgb(255 255 255)",
-      },
+      // Use standard colors for semantic colors - they work well in both modes
       background: {
         default: "rgb(255 247 237)",
         paper: "rgb(254 243 199)",
@@ -257,30 +189,7 @@ const themeOptions: Record<string, ThemeOptions> = {
         dark: "rgb(219 39 119)",
         contrastText: "rgb(255 255 255)",
       },
-      success: {
-        main: "rgb(34 197 94)",
-        light: "rgb(74 222 128)",
-        dark: "rgb(22 163 74)",
-        contrastText: "rgb(255 255 255)",
-      },
-      warning: {
-        main: "rgb(250 204 21)",
-        light: "rgb(253 224 71)",
-        dark: "rgb(202 138 4)",
-        contrastText: "rgb(0 0 0)",
-      },
-      error: {
-        main: "rgb(239 68 68)",
-        light: "rgb(248 113 113)",
-        dark: "rgb(220 38 38)",
-        contrastText: "rgb(255 255 255)",
-      },
-      info: {
-        main: "rgb(14 165 233)",
-        light: "rgb(56 189 248)",
-        dark: "rgb(3 105 161)",
-        contrastText: "rgb(255 255 255)",
-      },
+      // Use standard colors for semantic colors - they work well in both modes
       background: {
         default: "rgb(250 245 255)",
         paper: "rgb(243 232 255)",
@@ -315,30 +224,7 @@ const themeOptions: Record<string, ThemeOptions> = {
         dark: "rgb(107 114 128)",
         contrastText: "rgb(255 255 255)",
       },
-      success: {
-        main: "rgb(34 197 94)",
-        light: "rgb(74 222 128)",
-        dark: "rgb(22 163 74)",
-        contrastText: "rgb(255 255 255)",
-      },
-      warning: {
-        main: "rgb(234 179 8)",
-        light: "rgb(250 204 21)",
-        dark: "rgb(202 138 4)",
-        contrastText: "rgb(0 0 0)",
-      },
-      error: {
-        main: "rgb(220 38 38)",
-        light: "rgb(248 113 113)",
-        dark: "rgb(153 27 27)",
-        contrastText: "rgb(255 255 255)",
-      },
-      info: {
-        main: "rgb(107 114 128)",
-        light: "rgb(156 163 175)",
-        dark: "rgb(75 85 99)",
-        contrastText: "rgb(255 255 255)",
-      },
+      // Use standard colors for semantic colors - they work well in both modes
       background: {
         default: "rgb(249 250 251)",
         paper: "rgb(255 255 255)",
@@ -354,78 +240,68 @@ const themeOptions: Record<string, ThemeOptions> = {
   },
 };
 
-// Create theme objects from options
-export const themes = Object.fromEntries(
-  Object.entries(themeOptions).map(([key, options]) => [
-    key,
-    createTheme(options),
-  ])
-) as Record<string, ReturnType<typeof createTheme>>;
+export type ThemeName = keyof typeof themeOptions;
 
-export type ThemeName = keyof typeof themes;
+// Wrapper component that uses ThemeProvider's theme
+const StoryWrapper = ({ children }: { children: React.ReactNode }) => {
+  const theme = useTheme();
+  React.useEffect(() => {
+    // Apply background to body to eliminate white border from Storybook padding
+    const body = document.body;
+    const originalBg = body.style.backgroundColor;
+    body.style.backgroundColor = theme.palette.background.default;
+    return () => {
+      body.style.backgroundColor = originalBg;
+    };
+  }, [theme.palette.background.default]);
+
+  return (
+    <div
+      style={{
+        backgroundColor: theme.palette.background.default,
+        minHeight: "100vh",
+        width: "100%",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
 
 export const withTheme = (Story: any, context: any) => {
   const selectedTheme = (context.globals?.theme as ThemeName) || "default";
-  const isDark = context.globals?.colorMode === "dark";
+  const colorMode = context.globals?.colorMode || "light";
+  const isDark = colorMode === "dark";
+  const baseThemeOptions = themeOptions[selectedTheme];
 
-  const baseTheme = themes[selectedTheme];
-  const themeWithMode = createTheme({
-    palette: {
-      primary: baseTheme.palette.primary,
-      secondary: baseTheme.palette.secondary,
-      accent: baseTheme.palette.accent,
-      success: baseTheme.palette.success,
-      warning: baseTheme.palette.warning,
-      error: baseTheme.palette.error,
-      info: baseTheme.palette.info,
-      background: baseTheme.palette.background,
-      text: baseTheme.palette.text,
-      divider: baseTheme.palette.divider,
-      border: baseTheme.palette.border,
-    },
-    mode: isDark ? "dark" : "light",
-  });
+  // In dark mode, only pass accent colors - createTheme will use dark defaults for background/text/semantic colors
+  // In light mode, use all theme options
+  const themeOptionsToUse: ThemeOptions = isDark
+    ? {
+        mode: "dark",
+        palette: baseThemeOptions.palette
+          ? {
+              primary: baseThemeOptions.palette.primary,
+              secondary: baseThemeOptions.palette.secondary,
+              accent: baseThemeOptions.palette.accent,
+              // Don't pass success, warning, error, info, background, text, divider, border
+              // createTheme will use dark defaults for these
+            }
+          : undefined,
+      }
+    : {
+        ...baseThemeOptions,
+        mode: "light",
+      };
 
-  useEffect(() => {
-    const root = document.documentElement;
-    const { palette } = themeWithMode;
+  // Create the theme upfront to ensure it's valid
+  const theme = createTheme(themeOptionsToUse);
 
-    // Apply dark class
-    if (isDark) {
-      root.classList.add("dark");
-      root.classList.remove("light");
-    } else {
-      root.classList.add("light");
-      root.classList.remove("dark");
-    }
-
-    // Set CSS variables
-    root.style.setProperty("--color-primary", palette.primary.main);
-    root.style.setProperty(
-      "--color-primary-foreground",
-      palette.primary.contrastText
-    );
-    root.style.setProperty("--color-secondary", palette.secondary.main);
-    root.style.setProperty(
-      "--color-secondary-foreground",
-      palette.secondary.contrastText
-    );
-    root.style.setProperty("--color-accent", palette.accent.main);
-    root.style.setProperty(
-      "--color-accent-foreground",
-      palette.accent.contrastText
-    );
-    root.style.setProperty("--color-success", palette.success.main);
-    root.style.setProperty("--color-warning", palette.warning.main);
-    root.style.setProperty("--color-destructive", palette.error.main);
-    root.style.setProperty("--color-info", palette.info.main);
-    root.style.setProperty("--color-background", palette.background.default);
-    root.style.setProperty("--color-card", palette.background.paper);
-    root.style.setProperty("--color-card-foreground", palette.text.primary);
-    root.style.setProperty("--color-foreground", palette.text.primary);
-    root.style.setProperty("--color-muted", palette.text.secondary);
-    root.style.setProperty("--color-border", palette.border);
-  }, [themeWithMode, selectedTheme, isDark]);
-
-  return Story();
+  return (
+    <ThemeProvider theme={theme} defaultMode={isDark ? "dark" : "light"}>
+      <StoryWrapper>
+        <Story />
+      </StoryWrapper>
+    </ThemeProvider>
+  );
 };

@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Typography } from "../typography/typography";
 import { IconButton } from "../icon-button/icon-button";
 import { Badge } from "../badge/badge";
+import { useTheme } from "../../theme/ThemeProvider";
 
 /**
  * Props for the Navbar1 component.
@@ -58,11 +59,23 @@ export function Navbar1({
   alwaysRightElements = [],
 }: Navbar1Props) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const theme = useTheme();
 
   return (
-    <>
+    <div
+      className="sticky top-0 z-50 w-full"
+      style={{
+        backgroundColor: theme.palette.background.default,
+      }}
+    >
       {/* Main navbar */}
-      <div className="px-6 py-3 flex items-center justify-between gap-4 w-full bg-background border-b border-border">
+      <div
+        className="px-6 py-3 flex items-center justify-between gap-4 w-full border-b"
+        style={{
+          backgroundColor: theme.palette.background.default,
+          borderColor: theme.palette.border,
+        }}
+      >
         {/* Left side: Logo and left elements */}
         <div className="flex items-center gap-6">
           {/* Logo */}
@@ -93,9 +106,7 @@ export function Navbar1({
 
           {/* Always visible right elements */}
           {alwaysRightElements.map((element, index) => (
-            <React.Fragment key={`always-${index}`}>
-              {element}
-            </React.Fragment>
+            <React.Fragment key={`always-${index}`}>{element}</React.Fragment>
           ))}
 
           {/* Mobile hamburger menu button */}
@@ -122,9 +133,13 @@ export function Navbar1({
         (rightElements && rightElements.length > 0)) && (
         <div
           className={clsx(
-            "transition-all duration-300 overflow-hidden md:hidden bg-background",
-            menuOpen ? "max-h-96 py-4 border-b border-border" : "max-h-0 py-0"
+            "transition-all duration-300 overflow-hidden md:hidden border-b",
+            menuOpen ? "max-h-96 py-4" : "max-h-0 py-0"
           )}
+          style={{
+            backgroundColor: theme.palette.background.default,
+            borderColor: theme.palette.border,
+          }}
         >
           {/* Mobile left elements */}
           {leftElements && leftElements.length > 0 && (
@@ -145,6 +160,6 @@ export function Navbar1({
           )}
         </div>
       )}
-    </>
+    </div>
   );
 }

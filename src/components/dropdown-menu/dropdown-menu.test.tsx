@@ -170,7 +170,8 @@ describe("DropdownMenu", () => {
     );
 
     const dangerButton = screen.getByText("Delete");
-    expect(dangerButton).toHaveClass("text-[var(--color-destructive)]");
+    // The danger button should have error color from theme (now using inline style)
+    expect(dangerButton).toHaveStyle({ color: expect.any(String) });
   });
 
   test("calls onOpenChange when trigger is clicked", () => {

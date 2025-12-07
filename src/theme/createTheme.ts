@@ -1,4 +1,11 @@
-import type { Theme, ThemeOptions, Palette, PaletteOptions, PaletteColor, ThemeMode } from "./types";
+import type {
+  Theme,
+  ThemeOptions,
+  Palette,
+  PaletteOptions,
+  PaletteColor,
+  ThemeMode,
+} from "./types";
 
 // Default light palette colors
 const defaultLightPalette: Palette = {
@@ -127,7 +134,10 @@ function mergePaletteColor(
   };
 }
 
-function mergePalette(defaultPalette: Palette, options?: PaletteOptions): Palette {
+function mergePalette(
+  defaultPalette: Palette,
+  options?: PaletteOptions
+): Palette {
   if (!options) return defaultPalette;
 
   return {
@@ -154,16 +164,16 @@ function mergePalette(defaultPalette: Palette, options?: PaletteOptions): Palett
 
 /**
  * Creates a theme object with the specified options (MUI-style API).
- * 
+ *
  * Merges user-provided palette options with default light/dark palettes.
  * Follows Material-UI's createTheme pattern for familiarity.
- * 
+ *
  * @example
  * ```tsx
  * // Use default theme
  * const theme = createTheme();
  * ```
- * 
+ *
  * @example
  * ```tsx
  * // Custom theme with palette overrides
@@ -177,17 +187,17 @@ function mergePalette(defaultPalette: Palette, options?: PaletteOptions): Palett
  *   mode: "dark",
  * });
  * ```
- * 
+ *
  * @param options - Optional theme configuration
  * @returns A complete theme object with palette and mode
  */
 export function createTheme(options?: ThemeOptions): Theme {
   const mode: ThemeMode = options?.mode ?? "light";
-  const basePalette = mode === "dark" ? defaultDarkPalette : defaultLightPalette;
-  
+  const basePalette =
+    mode === "dark" ? defaultDarkPalette : defaultLightPalette;
+
   return {
     palette: mergePalette(basePalette, options?.palette),
     mode,
   };
 }
-

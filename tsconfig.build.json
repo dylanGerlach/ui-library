@@ -5,9 +5,11 @@
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "preserveWatchOutput": true
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", ".storybook"]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx", ".storybook", "**/*.stories.tsx"]
 }
 

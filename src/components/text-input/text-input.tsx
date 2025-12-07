@@ -1,5 +1,6 @@
 import React, { useState, forwardRef, InputHTMLAttributes } from "react";
 import clsx from "clsx";
+import { useTheme } from "../../theme/ThemeProvider";
 import type { MessageColor } from "../../theme/types";
 
 /**
@@ -87,6 +88,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     },
     ref
   ) => {
+    const theme = useTheme();
     const [isFocused, setIsFocused] = useState(false);
     const showMessage = error || helperText;
 
@@ -133,12 +135,12 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
             )}
             style={{
               borderColor: error
-                ? "var(--color-destructive)"
-                : "var(--color-border)",
+                ? theme.palette.error.main
+                : theme.palette.border,
               boxShadow: error
-                ? "0 0 0 2px var(--color-destructive)"
+                ? `0 0 0 2px ${theme.palette.error.main}`
                 : isFocused
-                ? "0 0 0 2px var(--color-primary)"
+                ? `0 0 0 2px ${theme.palette.primary.main}`
                 : "none",
             }}
             {...props}
