@@ -94,68 +94,103 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
 
     return (
       <div className="space-y-1 w-full" style={{ opacity: disabled ? 0.6 : 1 }}>
-        {label && (
-          <label className="text-sm font-medium text-foreground block">
-            {label}
-            {!required && <span className="text-muted"> (optional)</span>}
-          </label>
-        )}
-
-        <div className="relative flex items-center">
-          {startIcon && (
-            <span
-              className={clsx(
-                "absolute left-3 text-foreground flex items-center justify-center",
-                sizeClasses[inputSize].icon
-              )}
+        <div className="relative">
+          <div className="relative w-full">
+            {/* Fieldset creates border, legend creates notch for label */}
+            <fieldset
+              className="absolute inset-0 pointer-events-none rounded-md border m-0 p-0 overflow-hidden transition-colors"
+              style={{
+                borderColor: error
+                  ? theme.palette.error.main
+                  : isFocused
+                  ? theme.palette.primary.main
+                  : theme.palette.border,
+                borderWidth: error || isFocused ? "2px" : "1px",
+              }}
             >
-              {startIcon}
-            </span>
-          )}
-
-          <input
-            ref={ref}
-            onChange={(e) => onChange?.(e.target.value)}
-            onFocus={(e) => {
-              setIsFocused(true);
-              props.onFocus?.(e);
-            }}
-            onBlur={(e) => {
-              setIsFocused(false);
-              props.onBlur?.(e);
-            }}
-            disabled={disabled}
-            className={clsx(
-              "w-full rounded-md border bg-card text-foreground placeholder-muted",
-              "focus:outline-none transition-all",
-              disabled && "cursor-not-allowed opacity-70",
-              sizeClasses[inputSize].input,
-              startIcon && "pl-10",
-              endIcon && "pr-10"
-            )}
-            style={{
-              borderColor: error
-                ? theme.palette.error.main
-                : theme.palette.border,
-              boxShadow: error
-                ? `0 0 0 2px ${theme.palette.error.main}`
-                : isFocused
-                ? `0 0 0 2px ${theme.palette.primary.main}`
-                : "none",
-            }}
-            {...props}
-          />
-
-          {endIcon && (
-            <span
-              className={clsx(
-                "absolute right-3 text-foreground flex items-center justify-center",
-                sizeClasses[inputSize].icon
+              {label && (
+                <legend className="ml-2 px-1 pb-1">
+                  <span
+                    className={clsx(
+                      "whitespace-pre",
+                      inputSize === "sm"
+                        ? "text-xs"
+                        : inputSize === "md"
+                        ? "text-sm"
+                        : "text-base"
+                    )}
+                    style={{
+                      color: error
+                        ? theme.palette.error.main
+                        : isFocused
+                        ? theme.palette.primary.main
+                        : theme.palette.border,
+                    }}
+                  >
+                    {label}
+                  </span>
+                </legend>
               )}
-            >
-              {endIcon}
-            </span>
-          )}
+            </fieldset>
+
+            <div className="relative flex items-center">
+              {startIcon && (
+                <span
+                  className={clsx(
+                    "absolute left-3 text-foreground flex items-center justify-center z-10",
+                    sizeClasses[inputSize].icon
+                  )}
+                >
+                  {startIcon}
+                </span>
+              )}
+
+              <input
+                ref={ref}
+                onChange={(e) => onChange?.(e.target.value)}
+                onFocus={(e) => {
+                  setIsFocused(true);
+                  props.onFocus?.(e);
+                }}
+                onBlur={(e) => {
+                  setIsFocused(false);
+                  props.onBlur?.(e);
+                }}
+                disabled={disabled}
+                className={clsx(
+                  "w-full rounded-md bg-transparent text-foreground placeholder-muted",
+                  "focus:outline-none transition-all",
+                  disabled && "cursor-not-allowed opacity-70",
+                  sizeClasses[inputSize].input,
+                  startIcon && "pl-10",
+                  endIcon && "pr-10",
+                  inputSize === "sm"
+                    ? "pt-4 pb-1.5"
+                    : inputSize === "md"
+                    ? "pt-5 pb-2"
+                    : "pt-6 pb-3"
+                )}
+                style={{
+                  border: "none",
+                  outline: "none",
+                  boxShadow: "none",
+                  margin: 0,
+                }}
+                {...props}
+              />
+
+              {endIcon && (
+                <span
+                  className={clsx(
+                    "absolute right-3 text-foreground flex items-center justify-center z-10",
+                    sizeClasses[inputSize].icon
+                  )}
+                >
+                  {endIcon}
+                </span>
+              )}
+            </div>
+          </div>
         </div>
 
         {showMessage && (
