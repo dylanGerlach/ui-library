@@ -3,6 +3,7 @@ import { HexColorPicker } from "react-colorful";
 import { useState } from "react";
 import clsx from "clsx";
 import { Palette } from "lucide-react";
+import { useTheme } from "../../theme/ThemeProvider";
 
 const COLORS = [
   // Grayscale
@@ -103,6 +104,7 @@ export function ColorSelector({
 }: ColorSelectorProps) {
   const [open, setOpen] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const theme = useTheme();
 
   const effectiveValue = value || defaultValue;
 
@@ -115,10 +117,31 @@ export function ColorSelector({
           disabled={disabled}
           className={clsx(
             "relative flex items-center justify-center rounded-md p-2 border transition-colors",
-            "bg-card text-foreground",
-            "hover:bg-muted/10 focus:outline-none focus:ring-2 focus:ring-primary",
+            "focus:outline-none focus:ring-2",
             disabled && "opacity-50 cursor-not-allowed"
           )}
+          style={{
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+            borderColor: theme.palette.border,
+          }}
+          onMouseEnter={(e) => {
+            if (!disabled) {
+              e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (!disabled) {
+              e.currentTarget.style.backgroundColor = theme.palette.background.paper;
+            }
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.outline = `2px solid ${theme.palette.primary.main}`;
+            e.currentTarget.style.outlineOffset = "2px";
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.outline = "none";
+          }}
         >
           {trigger || <Palette size={18} />}
           {effectiveValue && (
@@ -134,9 +157,13 @@ export function ColorSelector({
         sideOffset={6}
         align="start"
         className={clsx(
-          "z-[9999] p-3 rounded-md shadow-md border",
-          "bg-card text-foreground space-y-2 w-52"
+          "z-[9999] p-3 rounded-md shadow-md border space-y-2 w-52"
         )}
+        style={{
+          backgroundColor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+          borderColor: theme.palette.border,
+        }}
       >
         {/* fixed height wrapper to stabilize switching */}
         <div className="relative h-52 w-full">

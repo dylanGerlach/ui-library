@@ -1,13 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React, { useState } from "react";
+import clsx from "clsx";
 import { Sidebar } from "./sidebar";
 import { Button } from "../button/button";
 import { Typography } from "../typography/typography";
-import { Plus, Library, MoreHorizontal, PanelLeft } from "lucide-react";
+import {
+  Plus,
+  Library,
+  MoreHorizontal,
+  PanelLeft,
+  Home,
+  Settings,
+  User,
+  FileText,
+} from "lucide-react";
 import { DropdownMenu } from "../dropdown-menu/dropdown-menu";
 import { Navbar1 } from "../navbar1/navbar1";
 import { IconButton } from "../icon-button/icon-button";
 import { Badge } from "../badge/badge";
+import { Accordion } from "../accordion/accordion";
 import { useTheme } from "../../theme/ThemeProvider";
 import { UserCircle, ShoppingCart } from "lucide-react";
 
@@ -180,7 +191,16 @@ export const ChatSidebarExample: Story = {
         <Sidebar width="md" border="right" padding="md">
           <button
             onClick={() => setSelectedId(null)}
-            className="flex items-center gap-2 w-full text-left py-1.5 px-2 mb-2 rounded transition-colors hover:bg-muted/10 text-foreground"
+            className="flex items-center gap-2 w-full text-left py-1.5 px-2 mb-2 rounded transition-colors"
+            style={{
+              color: theme.palette.text.primary,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
           >
             <Plus className="w-4 h-4" />
             New Chat
@@ -188,13 +208,25 @@ export const ChatSidebarExample: Story = {
 
           <button
             onClick={() => {}}
-            className="flex items-center gap-2 w-full text-left py-1.5 px-2 mb-3 rounded transition-colors hover:bg-muted/10 text-foreground"
+            className="flex items-center gap-2 w-full text-left py-1.5 px-2 mb-3 rounded transition-colors"
+            style={{
+              color: theme.palette.text.primary,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+            }}
           >
             <Library className="w-4 h-4" />
             Library
           </button>
 
-          <div className="text-sm font-semibold mb-2 uppercase tracking-wide text-muted">
+          <div
+            className="text-sm font-semibold mb-2 uppercase tracking-wide"
+            style={{ color: theme.palette.text.secondary }}
+          >
             Previous Chats
           </div>
 
@@ -413,6 +445,7 @@ export const CollapsibleControlled: Story = {
 
 export const ResponsiveDesktopMobile: Story = {
   render: () => {
+    const theme = useTheme();
     const [isOpen, setIsOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -471,8 +504,19 @@ export const ResponsiveDesktopMobile: Story = {
         <div className="flex items-start p-4">
           <button
             onClick={() => setIsOpen((prev) => !prev)}
-            className="p-2 rounded transition-colors hover:bg-muted/10 border bg-card text-foreground"
-            style={{ borderColor: theme.palette.border }}
+            className="p-2 rounded transition-colors border"
+            style={{
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              borderColor: theme.palette.border,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor =
+                theme.palette.background.paper;
+            }}
             aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
           >
             <PanelLeft className="w-6 h-6" />
@@ -505,6 +549,7 @@ export const ResponsiveDesktopMobile: Story = {
 
 export const WithNavbar: Story = {
   render: () => {
+    const theme = useTheme();
     const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
     const [isOpen, setIsOpen] = useState(() => window.innerWidth >= 768);
 
@@ -553,7 +598,7 @@ export const WithNavbar: Story = {
               <UserCircle
                 size={28}
                 strokeWidth={1.4}
-                className="text-primary"
+                style={{ color: theme.palette.primary.main }}
               />
             </IconButton>,
             <Badge key="cart" count={3} absolute position="top-right">
@@ -561,7 +606,7 @@ export const WithNavbar: Story = {
                 <ShoppingCart
                   size={26}
                   strokeWidth={1.4}
-                  className="text-primary"
+                  style={{ color: theme.palette.primary.main }}
                 />
               </IconButton>
             </Badge>,
@@ -589,14 +634,28 @@ export const WithNavbar: Story = {
             <div className="mt-4 space-y-2">
               <button
                 onClick={() => {}}
-                className="flex items-center gap-2 w-full text-left py-1.5 px-2 rounded transition-colors hover:bg-muted/10 text-foreground"
+                className="flex items-center gap-2 w-full text-left py-1.5 px-2 rounded transition-colors"
+                style={{ color: theme.palette.text.primary }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
               >
                 <Plus className="w-4 h-4" />
                 New Item
               </button>
               <button
                 onClick={() => {}}
-                className="flex items-center gap-2 w-full text-left py-1.5 px-2 rounded transition-colors hover:bg-muted/10 text-foreground"
+                className="flex items-center gap-2 w-full text-left py-1.5 px-2 rounded transition-colors"
+                style={{ color: theme.palette.text.primary }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
               >
                 <Library className="w-4 h-4" />
                 Library
@@ -640,6 +699,325 @@ export const WithNavbar: Story = {
                 {isMobile ? "Mobile (Overlay)" : "Desktop (Normal)"}
               </Typography>
             </div>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const CustomOpenClosedWidths: Story = {
+  render: () => {
+    const [isOpen, setIsOpen] = useState(true);
+    const theme = useTheme();
+
+    const navItems = [
+      { icon: Home, label: "Home", id: "home" },
+      { icon: FileText, label: "Documents", id: "documents" },
+      { icon: Settings, label: "Settings", id: "settings" },
+    ];
+
+    return (
+      <div className="flex h-screen">
+        <Sidebar
+          border="right"
+          padding="md"
+          isOpen={isOpen}
+          onOpenChange={setIsOpen}
+          closedWidth="w-[50px]"
+          openWidth="w-[400px]"
+        >
+          <div className="flex flex-col h-full">
+            {/* Navigation items */}
+            <div className="flex-1 overflow-y-auto">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <button
+                    key={item.id}
+                    className={clsx(
+                      "flex items-center w-full rounded transition-colors",
+                      isOpen
+                        ? "gap-3 py-2 px-2 mb-1 text-left"
+                        : "justify-center py-2 mb-1"
+                    )}
+                    style={{ color: theme.palette.text.primary }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                    }}
+                    title={item.label}
+                  >
+                    <Icon className="w-5 h-5 flex-shrink-0" />
+                    {isOpen && (
+                      <span className="text-sm whitespace-nowrap">
+                        {item.label}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Account section at bottom - show icon when closed, full details when open */}
+            <div
+              className={clsx("border-t", isOpen ? "pt-4" : "pt-2")}
+              style={{ borderColor: theme.palette.border }}
+            >
+              {isOpen ? (
+                <div className="flex items-center gap-3 px-2 py-2">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{
+                      backgroundColor: theme.palette.primary.main,
+                    }}
+                  >
+                    <User
+                      className="w-5 h-5"
+                      style={{ color: theme.palette.primary.contrastText }}
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div
+                      className="text-sm font-medium truncate"
+                      style={{ color: theme.palette.text.primary }}
+                    >
+                      John Doe
+                    </div>
+                    <div
+                      className="text-xs truncate"
+                      style={{ color: theme.palette.text.secondary }}
+                    >
+                      john@example.com
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex justify-center py-2">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{
+                      backgroundColor: theme.palette.primary.main,
+                    }}
+                  >
+                    <User
+                      className="w-5 h-5"
+                      style={{ color: theme.palette.primary.contrastText }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </Sidebar>
+
+        {/* Toggle button */}
+        <div className="flex items-start p-4">
+          <button
+            onClick={() => setIsOpen((prev) => !prev)}
+            className="p-2 rounded transition-colors border"
+            style={{
+              backgroundColor: theme.palette.background.paper,
+              color: theme.palette.text.primary,
+              borderColor: theme.palette.border,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor =
+                theme.palette.background.paper;
+            }}
+            aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
+          >
+            <PanelLeft className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Main content */}
+        <div className="flex-1 p-8">
+          <div className="mb-4">
+            <Typography variant="h3">Custom Open/Closed Widths</Typography>
+          </div>
+          <div className="mb-2">
+            <Typography variant="p">
+              This sidebar demonstrates custom open and closed widths. When
+              closed, it shows only icons at 50px width. When open, it expands
+              to 400px and shows full content including labels and the Account
+              section at the bottom.
+            </Typography>
+          </div>
+          <div className="mb-2">
+            <Typography variant="p">
+              Click the toggle button to see the sidebar transition between
+              states. Notice how the Account section only appears when open, and
+              the navigation items show icons only when closed.
+            </Typography>
+          </div>
+          <Typography variant="p">
+            Sidebar is currently:{" "}
+            <strong>{isOpen ? "open (400px)" : "closed (50px)"}</strong>
+          </Typography>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithAccordion: Story = {
+  render: () => {
+    const theme = useTheme();
+
+    return (
+      <div className="flex h-screen">
+        <Sidebar width="md" border="right" padding="md" isOpen={true}>
+          <div className="mb-4">
+            <Typography variant="h6">Navigation</Typography>
+          </div>
+          <Accordion
+            items={[
+              {
+                header: "Getting Started",
+                children: (
+                  <div className="space-y-1">
+                    <button
+                      className="block w-full text-left py-1.5 px-2 rounded transition-colors text-sm"
+                      style={{ color: theme.palette.text.primary }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      Installation
+                    </button>
+                    <button
+                      className="block w-full text-left py-1.5 px-2 rounded transition-colors text-sm"
+                      style={{ color: theme.palette.text.primary }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      Quick Start
+                    </button>
+                    <button
+                      className="block w-full text-left py-1.5 px-2 rounded transition-colors text-sm"
+                      style={{ color: theme.palette.text.primary }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      Examples
+                    </button>
+                  </div>
+                ),
+              },
+              {
+                header: "Components",
+                children: (
+                  <div className="space-y-1">
+                    <button
+                      className="block w-full text-left py-1.5 px-2 rounded transition-colors text-sm"
+                      style={{ color: theme.palette.text.primary }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      Buttons
+                    </button>
+                    <button
+                      className="block w-full text-left py-1.5 px-2 rounded transition-colors text-sm"
+                      style={{ color: theme.palette.text.primary }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      Inputs
+                    </button>
+                    <button
+                      className="block w-full text-left py-1.5 px-2 rounded transition-colors text-sm"
+                      style={{ color: theme.palette.text.primary }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      Menus
+                    </button>
+                  </div>
+                ),
+              },
+              {
+                header: "Advanced",
+                children: (
+                  <div className="space-y-1">
+                    <button
+                      className="block w-full text-left py-1.5 px-2 rounded transition-colors text-sm"
+                      style={{ color: theme.palette.text.primary }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      Theming
+                    </button>
+                    <button
+                      className="block w-full text-left py-1.5 px-2 rounded transition-colors text-sm"
+                      style={{ color: theme.palette.text.primary }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }}
+                    >
+                      Customization
+                    </button>
+                  </div>
+                ),
+              },
+            ]}
+            allowMultiple
+            size="sm"
+            bordered={false}
+          />
+        </Sidebar>
+        <div className="flex-1 p-8">
+          <div className="mb-4">
+            <Typography variant="h3">Sidebar with Accordion</Typography>
+          </div>
+          <div className="mb-2">
+            <Typography variant="p">
+              This story demonstrates the Sidebar and Accordion components
+              working together. The accordion is used to create a collapsible
+              navigation menu within the sidebar.
+            </Typography>
+          </div>
+          <div className="mb-2">
+            <Typography variant="p">
+              The accordion allows multiple sections to be expanded at once,
+              making it easy to navigate through different sections of the
+              sidebar.
+            </Typography>
           </div>
         </div>
       </div>

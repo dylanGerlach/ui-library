@@ -129,6 +129,35 @@ export interface ThemeOptions {
 }
 
 /**
+ * Core palette color names from theme
+ */
+export type PaletteColorName =
+  | "primary"
+  | "secondary"
+  | "accent"
+  | "error"
+  | "success"
+  | "warning"
+  | "info";
+
+/**
+ * Border color options from theme palette
+ */
+export type BorderColor =
+  | PaletteColorName
+  | "text.secondary"
+  | "border";
+
+/**
+ * Background color options from theme palette
+ */
+export type BackgroundColor =
+  | PaletteColorName
+  | "transparent"
+  | "background.default"
+  | "background.paper";
+
+/**
  * Type-safe color options for message text (error, helper text, etc.)
  * 
  * Uses semantic colors from the theme palette.

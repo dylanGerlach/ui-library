@@ -49,7 +49,7 @@ function App() {
 
 ## Theme System
 
-This library uses **MUI-style theming** (Material-UI pattern). All components use theme colors via CSS variables.
+This library uses **MUI-style theming** (Material-UI pattern). All components use theme colors via the useTheme() hook.
 
 ### Theme Structure
 

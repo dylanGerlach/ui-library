@@ -36,7 +36,6 @@
  * ### Form Inputs
  * - {@link TextInput} - Single-line text input with label, error handling, and icons
  * - {@link TextBoxInput} - Multi-line text input (textarea) with validation
- * - {@link EmailInput} - Email input with built-in validation
  * - {@link PasswordInput} - Password input with visibility toggle and strength indicator
  * - {@link DateInput} - Date picker with single date or range selection
  * - {@link CheckboxInput} - Checkbox with label and validation
@@ -59,7 +58,7 @@
  *
  * ## Theming
  *
- * This library uses MUI-style theming. All components use theme colors via CSS variables.
+ * This library uses MUI-style theming. All components use theme colors via the useTheme() hook.
  *
  * ### Required Setup
  *
@@ -95,7 +94,6 @@ export type {
   DropdownMenuItem,
   DropdownMenuProps,
 } from "./components/dropdown-menu/dropdown-menu";
-export { EmailInput } from "./components/email-input/email-input";
 export { PaginatedDropdownInput } from "./components/paginated-dropdown-input/paginated-dropdown-input";
 export { PasswordInput } from "./components/password-input/password-input";
 export { Spinner } from "./components/spinner/spinner";
@@ -113,6 +111,11 @@ export { Navbar1 } from "./components/navbar1/navbar1";
 export type { Navbar1Props } from "./components/navbar1/navbar1";
 export { Sidebar } from "./components/sidebar/sidebar";
 export type { SidebarProps } from "./components/sidebar/sidebar";
+export { Accordion } from "./components/accordion/accordion";
+export type {
+  AccordionProps,
+  AccordionItemProps,
+} from "./components/accordion/accordion";
 
 // Theme System (MUI-style)
 export { ThemeProvider, useTheme, useThemeMode } from "./theme/ThemeProvider";
@@ -125,4 +128,13 @@ export type {
   PaletteOptions,
   PaletteColor,
   MessageColor,
+  PaletteColorName,
+  BorderColor,
+  BackgroundColor,
 } from "./theme/types";
+export {
+  getPaletteColor,
+  getContrastText,
+  getBorderColor,
+  getBackgroundColor,
+} from "./theme/utils";

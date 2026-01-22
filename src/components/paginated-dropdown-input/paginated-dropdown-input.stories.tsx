@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { PaginatedDropdownInput } from "./paginated-dropdown-input";
+import { DropdownInput } from "../dropdown-input/dropdown-input";
 
 const meta: Meta<typeof PaginatedDropdownInput> = {
   title: "Components/PaginatedDropdownInput",
@@ -27,9 +28,10 @@ const fruits = Array.from({ length: 50 }, (_, i) => ({
 
 async function loadOptions(
   search: string,
-  _loadedOptions: any[],
-  { page }: { page: number }
+  _loadedOptions: readonly any[],
+  additional: any
 ) {
+  const { page } = additional as { page: number };
   const pageSize = 10;
   const start = (page - 1) * pageSize;
   const end = start + pageSize;
@@ -108,3 +110,48 @@ export const Required: Story = withControls({
   additional: { page: 1 },
   required: true,
 });
+
+export const ComparisonWithDropdownInput: Story = {
+  render: () => {
+    const [paginatedValue, setPaginatedValue] = React.useState<any>(null);
+    const [dropdownValue, setDropdownValue] = React.useState<
+      string | number | null
+    >(null);
+
+    const sampleOptions = [
+      { id: "apple", name: "Apple" },
+      { id: "banana", name: "Banana" },
+      { id: "cherry", name: "Cherry" },
+    ];
+
+    return (
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <h3 className="text-sm font-medium mb-2">
+              Paginated Dropdown Input
+            </h3>
+            <PaginatedDropdownInput
+              label="Select Option"
+              value={paginatedValue}
+              onChange={setPaginatedValue}
+              loadOptions={loadOptions}
+              additional={{ page: 1 }}
+              placeholder="Choose an option..."
+            />
+          </div>
+          <div>
+            <h3 className="text-sm font-medium mb-2">Dropdown Input</h3>
+            <DropdownInput
+              label="Select Option"
+              value={dropdownValue}
+              onChange={setDropdownValue}
+              options={sampleOptions}
+              placeholder="Choose an option..."
+            />
+          </div>
+        </div>
+      </div>
+    );
+  },
+};

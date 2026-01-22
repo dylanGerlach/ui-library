@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./button";
+import { useTheme } from "../../theme/ThemeProvider";
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -8,7 +9,7 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "accent", "destructive"],
+      options: ["primary", "secondary", "accent", "error", "success", "warning", "info"],
       description: "Visual style of the button",
       defaultValue: "primary",
     },
@@ -73,10 +74,10 @@ export const Accent: Story = {
   },
 };
 
-export const Destructive: Story = {
+export const Error: Story = {
   args: {
     children: "Delete",
-    variant: "destructive",
+    variant: "error",
   },
 };
 
@@ -155,20 +156,28 @@ export const PopEffect: Story = {
 };
 
 export const PopComparison: Story = {
-  render: () => (
-    <div className="space-y-6">
-      <div>
-        <p className="text-sm text-muted mb-2">Regular Button</p>
-        <Button variant="primary">Regular Button</Button>
-      </div>
-      <div>
-        <p className="text-sm text-muted mb-2">Button with Pop Effect</p>
-        <Button variant="primary" pop>
-          CTA Button with Pop
-        </Button>
-      </div>
-      <div>
-        <p className="text-sm text-muted mb-2">All Variants with Pop</p>
+  render: () => {
+    const theme = useTheme();
+    return (
+      <div className="space-y-6">
+        <div>
+          <p className="text-sm mb-2" style={{ color: theme.palette.text.secondary }}>
+            Regular Button
+          </p>
+          <Button variant="primary">Regular Button</Button>
+        </div>
+        <div>
+          <p className="text-sm mb-2" style={{ color: theme.palette.text.secondary }}>
+            Button with Pop Effect
+          </p>
+          <Button variant="primary" pop>
+            CTA Button with Pop
+          </Button>
+        </div>
+        <div>
+          <p className="text-sm mb-2" style={{ color: theme.palette.text.secondary }}>
+            All Variants with Pop
+          </p>
         <div className="flex gap-4">
           <Button variant="primary" pop>
             Primary Pop
@@ -179,13 +188,14 @@ export const PopComparison: Story = {
           <Button variant="accent" pop>
             Accent Pop
           </Button>
-          <Button variant="destructive" pop>
-            Destructive Pop
+          <Button variant="error" pop>
+            Error Pop
           </Button>
         </div>
       </div>
     </div>
-  ),
+    );
+  },
 };
 
 export const AllVariants: Story = {
@@ -195,7 +205,7 @@ export const AllVariants: Story = {
         <Button variant="primary">Primary</Button>
         <Button variant="secondary">Secondary</Button>
         <Button variant="accent">Accent</Button>
-        <Button variant="destructive">Destructive</Button>
+        <Button variant="error">Error</Button>
       </div>
       <div className="flex gap-4">
         <Button size="sm">Small</Button>
@@ -218,12 +228,14 @@ export const AllVariants: Story = {
 };
 
 export const ResponsiveSize: Story = {
-  render: () => (
-    <div className="space-y-6">
-      <div>
-        <p className="text-sm text-muted mb-2">
-          Responsive button - resizes at different breakpoints
-        </p>
+  render: () => {
+    const theme = useTheme();
+    return (
+      <div className="space-y-6">
+        <div>
+          <p className="text-sm mb-2" style={{ color: theme.palette.text.secondary }}>
+            Responsive button - resizes at different breakpoints
+          </p>
         <Button
           variant="primary"
           size={{
@@ -236,7 +248,7 @@ export const ResponsiveSize: Story = {
         </Button>
       </div>
       <div>
-        <p className="text-sm text-muted mb-2">
+        <p className="text-sm mb-2" style={{ color: theme.palette.text.secondary }}>
           Another example - starts large, gets smaller on mobile
         </p>
         <Button
@@ -251,7 +263,7 @@ export const ResponsiveSize: Story = {
         </Button>
       </div>
       <div>
-        <p className="text-sm text-muted mb-2">
+        <p className="text-sm mb-2" style={{ color: theme.palette.text.secondary }}>
           Simple string size (backward compatible)
         </p>
         <Button variant="accent" size="md">
@@ -259,5 +271,6 @@ export const ResponsiveSize: Story = {
         </Button>
       </div>
     </div>
-  ),
+    );
+  },
 };

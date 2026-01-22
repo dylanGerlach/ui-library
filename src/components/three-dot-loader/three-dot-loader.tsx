@@ -12,15 +12,15 @@ type ThreeDotLoaderProps = {
 
 /**
  * A loading indicator with three animated dots.
- * 
+ *
  * Inherits text color from parent, so it adapts to theme colors.
  * Used internally by Button component when isLoading is true.
- * 
+ *
  * @example
  * ```tsx
  * <ThreeDotLoader pace="fast" size="h-4 w-4" />
  * ```
- * 
+ *
  * @param props - ThreeDotLoader props
  * @returns A three-dot loading animation
  */
@@ -35,19 +35,20 @@ export function ThreeDotLoader({
   };
 
   return (
-    <div className={clsx("flex items-center gap-[0.3em]", size)}>
+    <div className={clsx("flex items-center justify-center gap-1", size)}>
       <span className={clsx("dot", paceMap[pace])} />
       <span className={clsx("dot delay-200", paceMap[pace])} />
       <span className={clsx("dot delay-400", paceMap[pace])} />
       <style>{`
         .dot {
-          width: 0.6em;
-          height: 0.6em;
+          width: 0.35rem;
+          height: 0.35rem;
           border-radius: 50%;
           background-color: currentColor;
           animation-name: dot-pulse;
           animation-iteration-count: infinite;
           animation-timing-function: ease-in-out;
+          flex-shrink: 0;
         }
 
         /* Pacing options */

@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import { IconButton } from "./icon-button";
 import { Heart } from "lucide-react";
+import { useTheme } from "../../theme/ThemeProvider";
 
 const meta: Meta<typeof IconButton> = {
   title: "Components/IconButton",
@@ -75,18 +76,27 @@ export const Interactive: Story = {
 };
 
 export const Variants: Story = {
-  render: () => (
-    <div className="flex gap-4 items-center">
-      <div className="p-4 bg-card rounded">
+  render: () => {
+    const theme = useTheme();
+    return (
+      <div className="flex gap-4 items-center">
+        <div
+          className="p-4 rounded"
+          style={{ backgroundColor: theme.palette.background.paper }}
+        >
         <IconButton variant="card" label="Card background">
           <Heart size={18} />
         </IconButton>
       </div>
-      <div className="p-4 bg-background rounded">
+      <div
+        className="p-4 rounded"
+        style={{ backgroundColor: theme.palette.background.default }}
+      >
         <IconButton variant="transparent" label="Transparent background">
           <Heart size={18} />
         </IconButton>
       </div>
     </div>
-  ),
+    );
+  },
 };

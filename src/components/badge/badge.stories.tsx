@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Badge } from "./badge";
 import { ShoppingCart } from "lucide-react";
+import { useTheme } from "../../theme/ThemeProvider";
 
 const meta: Meta<typeof Badge> = {
   title: "Components/Badge",
@@ -13,7 +14,7 @@ const meta: Meta<typeof Badge> = {
     },
     variant: {
       control: "select",
-      options: ["primary", "secondary", "accent", "destructive"],
+      options: ["primary", "secondary", "accent", "error", "success", "warning", "info"],
       description: "Visual variant",
       defaultValue: "primary",
     },
@@ -55,55 +56,85 @@ export const Variants: Story = {
       <Badge count={5} variant="primary" />
       <Badge count={3} variant="secondary" />
       <Badge count={7} variant="accent" />
-      <Badge count={2} variant="destructive" />
+      <Badge count={2} variant="error" />
     </div>
   ),
 };
 
 export const OverlayOnIcon: Story = {
-  render: () => (
-    <div className="flex gap-8 items-center">
-      {/* Easier API - Badge wraps the icon */}
-      <Badge count={3} absolute position="top-right">
-        <ShoppingCart size={28} className="text-accent" />
-      </Badge>
-      <Badge count={99} max={99} absolute position="top-right">
-        <ShoppingCart size={28} className="text-accent" />
-      </Badge>
-      <Badge count={150} max={99} absolute position="top-right">
-        <ShoppingCart size={28} className="text-accent" />
-      </Badge>
-      {/* Traditional approach still works */}
-      <div className="relative">
-        <ShoppingCart size={28} className="text-accent" />
-        <Badge count={3} absolute position="top-right" />
+  render: () => {
+    const theme = useTheme();
+    return (
+      <div className="flex gap-8 items-center">
+        {/* Easier API - Badge wraps the icon */}
+        <Badge count={3} absolute position="top-right">
+          <ShoppingCart size={28} style={{ color: theme.palette.accent.main }} />
+        </Badge>
+        <Badge count={99} max={99} absolute position="top-right">
+          <ShoppingCart size={28} style={{ color: theme.palette.accent.main }} />
+        </Badge>
+        <Badge count={150} max={99} absolute position="top-right">
+          <ShoppingCart size={28} style={{ color: theme.palette.accent.main }} />
+        </Badge>
+        {/* Traditional approach still works */}
+        <div className="relative">
+          <ShoppingCart size={28} style={{ color: theme.palette.accent.main }} />
+          <Badge count={3} absolute position="top-right" />
+        </div>
       </div>
-    </div>
-  ),
+    );
+  },
 };
 
 export const Positions: Story = {
-  render: () => (
-    <div className="space-y-8">
-      <div className="flex gap-8">
-        <div className="relative w-16 h-16 bg-card border border-border rounded-md flex items-center justify-center">
-          <span className="text-sm">Box</span>
-          <Badge count={5} absolute position="top-right" />
-        </div>
-        <div className="relative w-16 h-16 bg-card border border-border rounded-md flex items-center justify-center">
-          <span className="text-sm">Box</span>
-          <Badge count={5} absolute position="top-left" />
-        </div>
-        <div className="relative w-16 h-16 bg-card border border-border rounded-md flex items-center justify-center">
-          <span className="text-sm">Box</span>
-          <Badge count={5} absolute position="bottom-right" />
-        </div>
-        <div className="relative w-16 h-16 bg-card border border-border rounded-md flex items-center justify-center">
-          <span className="text-sm">Box</span>
-          <Badge count={5} absolute position="bottom-left" />
+  render: () => {
+    const theme = useTheme();
+    return (
+      <div className="space-y-8">
+        <div className="flex gap-8">
+          <div
+            className="relative w-16 h-16 border rounded-md flex items-center justify-center"
+            style={{
+              backgroundColor: theme.palette.background.paper,
+              borderColor: theme.palette.border,
+            }}
+          >
+            <span className="text-sm">Box</span>
+            <Badge count={5} absolute position="top-right" />
+          </div>
+          <div
+            className="relative w-16 h-16 border rounded-md flex items-center justify-center"
+            style={{
+              backgroundColor: theme.palette.background.paper,
+              borderColor: theme.palette.border,
+            }}
+          >
+            <span className="text-sm">Box</span>
+            <Badge count={5} absolute position="top-left" />
+          </div>
+          <div
+            className="relative w-16 h-16 border rounded-md flex items-center justify-center"
+            style={{
+              backgroundColor: theme.palette.background.paper,
+              borderColor: theme.palette.border,
+            }}
+          >
+            <span className="text-sm">Box</span>
+            <Badge count={5} absolute position="bottom-right" />
+          </div>
+          <div
+            className="relative w-16 h-16 border rounded-md flex items-center justify-center"
+            style={{
+              backgroundColor: theme.palette.background.paper,
+              borderColor: theme.palette.border,
+            }}
+          >
+            <span className="text-sm">Box</span>
+            <Badge count={5} absolute position="bottom-left" />
+          </div>
         </div>
       </div>
-    </div>
-  ),
+    );
+  },
 };
 

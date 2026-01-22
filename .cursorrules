@@ -17,7 +17,7 @@ dist/**
 # Library Context
 This is a React UI component library with MUI-style theming.
 All components require ThemeProvider to be set up with a palette.
-Components use theme colors via CSS variables.
+Components use theme colors via the useTheme() hook with inline styles.
 
 # Component Structure
 - Components are in src/components/
@@ -29,6 +29,7 @@ Components use theme colors via CSS variables.
 # Theming
 - ThemeProvider is REQUIRED
 - Use createTheme() to define palettes (MUI-style)
-- All components use CSS variables from the theme
+- All components use useTheme() hook to access theme colors directly
+- Colors are applied via inline styles, not CSS variables
 - Supports light/dark mode via useThemeMode()
 

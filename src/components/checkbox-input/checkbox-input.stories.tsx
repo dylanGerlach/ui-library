@@ -13,10 +13,20 @@ const meta: Meta<typeof CheckboxInput> = {
     required: { control: "boolean" },
     error: { control: "text" },
     helperText: { control: "text" },
-    reserveMessageSpace: { control: "boolean" },
     messageColor: {
       control: "select",
-      options: ["primary", "secondary", "accent", "destructive", "success", "warning", "error", "info", "foreground", "muted"],
+      options: [
+        "primary",
+        "secondary",
+        "accent",
+        "destructive",
+        "success",
+        "warning",
+        "error",
+        "info",
+        "foreground",
+        "muted",
+      ],
     },
   },
 };
@@ -70,14 +80,5 @@ export const WithHelperText: Story = {
   args: {
     label: "Enable notifications",
     helperText: "You can change this later in settings",
-  },
-};
-
-export const ReserveMessageSpace: Story = {
-  render: ControlledTemplate,
-  args: {
-    label: "Stable layout checkbox",
-    reserveMessageSpace: true,
-    helperText: "Space reserved even if this disappears",
   },
 };

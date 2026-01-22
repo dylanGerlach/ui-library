@@ -1,5 +1,4 @@
 import React from "react";
-import clsx from "clsx";
 import { useTheme } from "../../theme/ThemeProvider";
 
 /**
@@ -8,8 +7,8 @@ import { useTheme } from "../../theme/ThemeProvider";
  * @interface MessageProps
  */
 export interface MessageProps {
-  /** The message text to display */
-  message: string;
+  /** The message content to display (can be text or React nodes) */
+  children: React.ReactNode;
   /** The type of message. Defaults to "success". */
   type?: "success" | "error" | "info";
 }
@@ -23,19 +22,27 @@ export interface MessageProps {
  * @example
  * ```tsx
  * // Basic message (defaults to success)
- * <Message message="Operation completed successfully!" />
+ * <Message>Operation completed successfully!</Message>
  * ```
  *
  * @example
  * ```tsx
  * // Error message
- * <Message message="Something went wrong" type="error" />
+ * <Message type="error">Something went wrong</Message>
  * ```
  *
  * @example
  * ```tsx
  * // Info message
- * <Message message="Processing your request..." type="info" />
+ * <Message type="info">Processing your request...</Message>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Message with custom content
+ * <Message type="success">
+ *   <strong>Success!</strong> Your changes have been saved.
+ * </Message>
  * ```
  *
  * @example
@@ -43,18 +50,18 @@ export interface MessageProps {
  * // Absolutely positioned message (parent handles positioning)
  * <div className="relative">
  *   <div className="absolute left-1/2 transform -translate-x-1/2 mt-1.5">
- *     <Message message="Saved!" />
+ *     <Message>Saved!</Message>
  *   </div>
  * </div>
  * ```
  *
  * @param props - Message component props
- * @returns A styled message element, or null if message is empty
+ * @returns A styled message element, or null if children is empty
  */
-export function Message({ message, type = "success" }: MessageProps) {
+export function Message({ children, type = "success" }: MessageProps) {
   const theme = useTheme();
 
-  if (!message) return null;
+  if (!children) return null;
 
   const baseStyle =
     "px-4 py-2 rounded shadow-md text-sm font-medium z-50 border";
@@ -86,7 +93,7 @@ export function Message({ message, type = "success" }: MessageProps) {
 
   return (
     <div className={baseStyle} style={getColorStyle()}>
-      {message}
+      {children}
     </div>
   );
 }

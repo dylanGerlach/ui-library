@@ -1,5 +1,8 @@
 import React from "react";
 import clsx from "clsx";
+import { useTheme } from "../../theme/ThemeProvider";
+import type { PaletteColorName } from "../../theme/types";
+import { getPaletteColor, getContrastText } from "../../theme/utils";
 
 /**
  * Props for the Badge component.
@@ -10,7 +13,7 @@ export interface BadgeProps {
   /** The count/number to display in the badge */
   count: number;
   /** Visual variant of the badge */
-  variant?: "primary" | "secondary" | "accent" | "destructive";
+  variant?: PaletteColorName;
   /** Maximum count before showing "max+" (e.g., 99+ for max=99) */
   max?: number;
   /** Whether the badge should be positioned absolutely (for overlays) */
@@ -68,6 +71,8 @@ export function Badge({
   position = "top-right",
   children,
 }: BadgeProps) {
+  const theme = useTheme();
+
   // Format the count display
   const displayCount = max && count > max ? `${max}+` : count.toString();
 
@@ -81,12 +86,13 @@ export function Badge({
     isSingleDigit ? "h-4 w-4" : "h-5 min-w-[1.25rem]"
   );
 
-  // Use contrast text colors from theme
-  const variantStyles: Record<string, string> = {
-    primary: "bg-primary text-primary-foreground",
-    secondary: "bg-secondary text-secondary-foreground",
-    accent: "bg-accent text-accent-foreground",
-    destructive: "bg-destructive text-destructive-foreground",
+  // Get colors from theme palette
+  const getVariantStyles = () => {
+    const colorName = variant || "primary";
+    return {
+      backgroundColor: getPaletteColor(colorName, theme),
+      color: getContrastText(colorName, theme),
+    };
   };
 
   const positionStyles = absolute
@@ -98,13 +104,18 @@ export function Badge({
       }[position]
     : "";
 
+  const variantStyle = getVariantStyles();
+
   // If children provided and absolute positioning, wrap in relative container
   if (children && absolute) {
     return (
       <span className="relative inline-block">
         {children}
         {count > 0 && (
-          <span className={clsx(baseStyles, variantStyles[variant], positionStyles)}>
+          <span
+            className={clsx(baseStyles, positionStyles)}
+            style={variantStyle}
+          >
             {displayCount}
           </span>
         )}
@@ -116,7 +127,7 @@ export function Badge({
   if (count <= 0) return null;
 
   return (
-    <span className={clsx(baseStyles, variantStyles[variant], positionStyles)}>
+    <span className={clsx(baseStyles, positionStyles)} style={variantStyle}>
       {displayCount}
     </span>
   );

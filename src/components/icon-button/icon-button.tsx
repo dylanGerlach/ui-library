@@ -56,8 +56,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     ref
   ) => {
     const theme = useTheme();
-    const backgroundClass =
-      variant === "transparent" ? "bg-transparent" : "bg-card";
+    const backgroundColor =
+      variant === "transparent" ? "transparent" : theme.palette.background.paper;
 
     return (
       <button
@@ -70,12 +70,24 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         title={label}
         className={clsx(
           "flex items-center justify-center rounded-md p-2 transition-colors border",
-          backgroundClass,
-          "text-foreground hover:bg-muted/10",
           disabled && "opacity-50 cursor-not-allowed",
           active ? "border-2" : "border"
         )}
-        style={{ borderColor: active ? theme.palette.primary.main : "transparent" }}
+        style={{
+          backgroundColor,
+          color: theme.palette.text.primary,
+          borderColor: active ? theme.palette.primary.main : "transparent",
+        }}
+        onMouseEnter={(e) => {
+          if (!disabled && variant === "transparent") {
+            e.currentTarget.style.backgroundColor = `${theme.palette.text.secondary}1a`;
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (!disabled && variant === "transparent") {
+            e.currentTarget.style.backgroundColor = "transparent";
+          }
+        }}
       >
         {children}
       </button>

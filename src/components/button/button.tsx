@@ -1,5 +1,8 @@
 import React from "react";
 import clsx from "clsx";
+import { useTheme } from "../../theme/ThemeProvider";
+import type { PaletteColorName } from "../../theme/types";
+import { getPaletteColor, getContrastText } from "../../theme/utils";
 import { ThreeDotLoader } from "../three-dot-loader/three-dot-loader";
 
 /**
@@ -28,7 +31,7 @@ type ButtonProps = {
   /** The content to display inside the button */
   children: React.ReactNode;
   /** Visual style variant of the button */
-  variant?: "primary" | "secondary" | "accent" | "destructive";
+  variant?: PaletteColorName;
   /** Size of the button. Can be a simple size string or an object with responsive breakpoints. */
   size?: ButtonSize;
   /** Border radius of the button (rounded corners) */
@@ -168,6 +171,8 @@ export function Button({
   iconPosition = "left",
   ...props
 }: ButtonProps) {
+  const theme = useTheme();
+
   const base =
     "inline-flex items-center justify-center font-medium border-0 focus:outline-none transition-all disabled:opacity-50";
 
@@ -179,16 +184,20 @@ export function Button({
     full: "rounded-full",
   };
 
-  const variants: Record<string, string> = {
-    primary: "bg-primary text-primary-foreground hover:opacity-90",
-    secondary: "bg-secondary text-secondary-foreground hover:opacity-90",
-    accent: "bg-accent text-accent-foreground hover:opacity-90",
-    destructive: "bg-destructive text-destructive-foreground hover:opacity-90",
+  // Get variant colors from theme
+  const getVariantStyles = () => {
+    const colorName = variant || "primary";
+    return {
+      backgroundColor: getPaletteColor(colorName, theme),
+      color: getContrastText(colorName, theme),
+    };
   };
 
   const popStyles = pop
     ? "shadow-lg hover:shadow-xl hover:scale-105 active:scale-100"
     : "";
+
+  const variantStyle = getVariantStyles();
 
   return (
     <button
@@ -197,10 +206,20 @@ export function Button({
         base,
         getSizeClasses(size),
         roundedStyles[rounded],
-        variants[variant],
         fullWidth && "w-full",
         popStyles
       )}
+      style={variantStyle}
+      onMouseEnter={(e) => {
+        if (!disabled && !isLoading) {
+          e.currentTarget.style.opacity = "0.9";
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!disabled && !isLoading) {
+          e.currentTarget.style.opacity = "1";
+        }
+      }}
       aria-busy={isLoading}
       {...props}
     >

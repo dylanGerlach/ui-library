@@ -25,8 +25,6 @@ export interface CheckboxInputProps {
   helperText?: string;
   /** Color for the message text from theme palette */
   messageColor?: MessageColor;
-  /** Whether to reserve space for messages even when none are shown */
-  reserveMessageSpace?: boolean;
 }
 
 /**
@@ -58,7 +56,6 @@ export function CheckboxInput({
   error,
   helperText,
   messageColor,
-  reserveMessageSpace = true,
 }: CheckboxInputProps) {
   const theme = useTheme();
   const showMessage = error || helperText;
@@ -75,21 +72,37 @@ export function CheckboxInput({
           className="w-4 h-4 cursor-pointer disabled:cursor-not-allowed"
           style={{ accentColor: theme.palette.primary.main }}
         />
-        <label className="text-sm text-foreground">{label}</label>
+        <label className="text-sm" style={{ color: theme.palette.text.primary }}>
+          {label}
+        </label>
       </div>
 
-      {(showMessage || reserveMessageSpace) && (
+      {showMessage && (
         <p
-          className={clsx(
-            "text-sm mt-1 min-h-[1.25rem]",
-            error
-              ? "text-destructive"
-              : messageColor
-              ? `text-${messageColor}`
-              : "text-foreground"
-          )}
+          className="text-sm mt-1"
+          style={{
+            color: error
+              ? theme.palette.error.main
+              : messageColor === "primary"
+              ? theme.palette.primary.main
+              : messageColor === "secondary"
+              ? theme.palette.secondary.main
+              : messageColor === "accent"
+              ? theme.palette.accent.main
+              : messageColor === "destructive"
+              ? theme.palette.error.main
+              : messageColor === "success"
+              ? theme.palette.success.main
+              : messageColor === "warning"
+              ? theme.palette.warning.main
+              : messageColor === "info"
+              ? theme.palette.info.main
+              : messageColor === "muted"
+              ? theme.palette.text.secondary
+              : theme.palette.text.primary,
+          }}
         >
-          {showMessage ? error || helperText : ""}
+          {error || helperText}
         </p>
       )}
     </div>

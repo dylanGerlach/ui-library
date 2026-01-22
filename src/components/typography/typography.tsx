@@ -1,5 +1,8 @@
 import React from "react";
 import clsx from "clsx";
+import { useTheme } from "../../theme/ThemeProvider";
+import type { PaletteColorName } from "../../theme/types";
+import { getPaletteColor } from "../../theme/utils";
 
 /**
  * Typography variants for different text styles.
@@ -115,6 +118,8 @@ export function Typography({
   italic = false,
   children,
 }: TypographyProps) {
+  const theme = useTheme();
+
   // Determine the element to render
   const getElement = (): ElementType => {
     if (as) return as;
@@ -155,18 +160,32 @@ export function Typography({
     caption: "text-sm",
   };
 
-  // Color styles from theme palette
-  const colorStyles: Record<TypographyColor, string> = {
-    primary: "text-primary",
-    secondary: "text-secondary",
-    accent: "text-accent",
-    destructive: "text-destructive",
-    success: "text-success",
-    warning: "text-warning",
-    error: "text-destructive", // error maps to destructive
-    info: "text-info",
-    foreground: "text-foreground",
-    muted: "text-muted",
+  // Get color from theme palette
+  const getColorFromTheme = (colorName: TypographyColor): string => {
+    // Use shared utility for palette colors
+    if (
+      colorName === "primary" ||
+      colorName === "secondary" ||
+      colorName === "accent" ||
+      colorName === "error" ||
+      colorName === "success" ||
+      colorName === "warning" ||
+      colorName === "info"
+    ) {
+      return getPaletteColor(colorName as PaletteColorName, theme);
+    }
+
+    // Handle special cases
+    switch (colorName) {
+      case "destructive":
+        return theme.palette.error.main; // Map destructive to error
+      case "foreground":
+        return theme.palette.text.primary;
+      case "muted":
+        return theme.palette.text.secondary;
+      default:
+        return theme.palette.text.primary;
+    }
   };
 
   // Default color: foreground for most, muted for caption, accent for links
@@ -190,7 +209,6 @@ export function Typography({
   const combinedClassName = clsx(
     baseStyles,
     variantStyles[variant],
-    colorStyles[selectedColor],
     linkStyles,
     activeStyles,
     boldStyle,
@@ -199,6 +217,7 @@ export function Typography({
 
   const elementProps = {
     className: combinedClassName,
+    style: { color: getColorFromTheme(selectedColor) },
     ...(href && { href }),
     ...(onClick && { onClick }),
   };

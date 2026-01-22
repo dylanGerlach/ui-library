@@ -114,7 +114,8 @@ export function Navbar1({
             (rightElements && rightElements.length > 0)) && (
             <button
               type="button"
-              className="md:hidden text-primary hover:opacity-80 transition-opacity"
+              className="md:hidden hover:opacity-80 transition-opacity"
+              style={{ color: theme.palette.primary.main }}
               onClick={() => setMenuOpen((prev) => !prev)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
             >

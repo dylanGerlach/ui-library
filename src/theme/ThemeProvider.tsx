@@ -16,14 +16,13 @@ const ThemeModeContext = createContext<{
   toggleMode: () => void;
 } | null>(null);
 
-// Helper function to apply theme to CSS variables synchronously
-function applyThemeToCSS(themeValue: Theme, mode: ThemeMode) {
+// Helper function to apply theme mode class to document root
+function applyThemeMode(mode: ThemeMode) {
   if (typeof document === "undefined") return; // SSR guard
 
   const root = document.documentElement;
-  const { palette } = themeValue;
 
-  // Set or remove dark class
+  // Set or remove dark class for any CSS that relies on it
   if (mode === "dark") {
     root.classList.add("dark");
     root.classList.remove("light");
@@ -31,33 +30,6 @@ function applyThemeToCSS(themeValue: Theme, mode: ThemeMode) {
     root.classList.add("light");
     root.classList.remove("dark");
   }
-
-  // Set CSS variables synchronously
-  root.style.setProperty("--color-primary", palette.primary.main);
-  root.style.setProperty(
-    "--color-primary-foreground",
-    palette.primary.contrastText
-  );
-  root.style.setProperty("--color-secondary", palette.secondary.main);
-  root.style.setProperty(
-    "--color-secondary-foreground",
-    palette.secondary.contrastText
-  );
-  root.style.setProperty("--color-accent", palette.accent.main);
-  root.style.setProperty(
-    "--color-accent-foreground",
-    palette.accent.contrastText
-  );
-  root.style.setProperty("--color-success", palette.success.main);
-  root.style.setProperty("--color-warning", palette.warning.main);
-  root.style.setProperty("--color-destructive", palette.error.main);
-  root.style.setProperty("--color-info", palette.info.main);
-  root.style.setProperty("--color-background", palette.background.default);
-  root.style.setProperty("--color-card", palette.background.paper);
-  root.style.setProperty("--color-card-foreground", palette.text.primary);
-  root.style.setProperty("--color-foreground", palette.text.primary);
-  root.style.setProperty("--color-muted", palette.text.secondary);
-  root.style.setProperty("--color-border", palette.border);
 }
 
 /**
@@ -78,9 +50,9 @@ export interface ThemeProviderProps {
  * Theme provider component that supplies theme context to all child components.
  *
  * **REQUIRED**: Wrap your app with ThemeProvider to enable theming. This component:
- * - Applies theme colors as CSS variables to the document root
- * - Manages light/dark mode switching
+ * - Manages light/dark mode switching (applies dark/light class to document root)
  * - Provides theme context via useTheme() and useThemeMode() hooks
+ * - All components use useTheme() hook to access theme colors directly
  *
  * Uses MUI-style theming - pass a theme created with createTheme() or ThemeOptions
  * to customize the palette.
@@ -153,15 +125,15 @@ export function ThemeProvider({
     return createTheme({ ...(theme as ThemeOptions), mode });
   }, [theme, mode]);
 
-  // Apply theme immediately on mount (synchronously) to prevent FOUC
+  // Apply theme mode class immediately on mount (synchronously)
   if (typeof document !== "undefined") {
-    applyThemeToCSS(themeValue, mode);
+    applyThemeMode(mode);
   }
 
-  // Also use useLayoutEffect to handle theme/mode changes
+  // Also use useLayoutEffect to handle mode changes
   useLayoutEffect(() => {
-    applyThemeToCSS(themeValue, mode);
-  }, [themeValue, mode]);
+    applyThemeMode(mode);
+  }, [mode]);
 
   const toggleMode = () => {
     setMode((prev) => (prev === "light" ? "dark" : "light"));
